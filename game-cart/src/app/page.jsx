@@ -35,17 +35,18 @@ export default function Home() {
           <p className="text-xl mb-8">Find the perfect tech for your lifestyle</p>
           
        
-          <div className="max-w-2xl mx-auto flex">
+          <div className="max-w-2xl mx-auto flex shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
             <input
               type="text"
               placeholder="Search for gadgets..."
-              className="flex-1 px-6 py-3 rounded-l-lg text-gray-800 focus:outline-none"
+              className="flex-1 px-6 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition-all duration-200"
             />
             <button 
-              className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-6 py-3 rounded-r-lg flex items-center"
+              className="bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-semibold px-8 py-4 flex items-center space-x-2 transition-all duration-300 hover:shadow-inner"
               onClick={() => toast.success('Search functionality coming soon!')}
             >
-              <FiSearch className="mr-2" /> Search
+              <FiSearch className="h-5 w-5" />
+              <span>Search</span>
             </button>
           </div>
         </div>
