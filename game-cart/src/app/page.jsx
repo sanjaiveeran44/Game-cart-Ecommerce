@@ -32,19 +32,19 @@ export default function Home() {
       <div className="flex items-center">
         <span className="text-xl font-bold text-indigo-600">GadgetHub</span>
       </div>
-      <div className="hidden md:flex items-center space-x-8">
-        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Home</a>
-        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Shop</a>
-        <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Orders</a>
-        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">About</a>
+      <div className="hidden md:flex items-center space-x-4">
+        <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Home</a>
+        <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Shop</a>
+        <a href="/orders" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Orders</a>
+        <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">About</a>
       </div>
       <div className="flex items-center space-x-4">
-        <button className="p-2 text-gray-500 hover:text-gray-700">
+        <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200">
           <FiSearch className="h-5 w-5" />
         </button>
-        <button className="p-2 text-gray-500 hover:text-gray-700 relative">
+        <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full relative transition-colors duration-200">
           <FiShoppingCart className="h-5 w-5" />
-          <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+          <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hover:bg-indigo-700 transition-colors duration-200">3</span>
         </button>
         <button className="md:hidden p-2 text-gray-500 hover:text-gray-700">
           <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
