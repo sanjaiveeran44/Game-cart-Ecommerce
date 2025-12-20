@@ -1,18 +1,25 @@
 "use client";
 
 const OrdersPage = () => {
-  // Sample order data
-  const orders = [
-    { id: 1, customer: 'John Doe', product: 'PlayStation 5', price: 499.99, status: 'Shipped' },
-    { id: 2, customer: 'Jane Smith', product: 'Xbox Series X', price: 499.99, status: 'Delivered' },
-    { id: 3, customer: 'Mike Johnson', product: 'Nintendo Switch', price: 299.99, status: 'Processing' },
-    { id: 4, customer: 'Sarah Williams', product: 'Gaming PC', price: 1299.99, status: 'Pending' },
-  ];
+
 
   return (
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-6">
+      <h1 className="text-4xl font-extrabold text-indigo-900 mb-8 text-center">
         <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-600 to-purple-600">
           Orders Dashboard
         </span>
+      </h1>
+
+      {orders.length > 0 ? (
+        <div>
+          
+        </div>
+      ) : (
+        <p>No orders found.</p>
+      )}
+
+    </div>
   );
 };
 
