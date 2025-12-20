@@ -106,19 +106,22 @@ export default function Home() {
               <div className="text-center px-4">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">{item.title}</h1>
                 <p className="text-xl mb-8 max-w-2xl mx-auto">{item.description}</p>
-                <div className="max-w-2xl mx-auto flex shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
-                  <input
-                    type="text"
-                    placeholder="Search for gadgets..."
-                    className="flex-1 px-6 py-4 text-gray-800 focus:outline-none focus:ring-2 focus:ring-white transition-all duration-200"
-                  />
-                  <button 
-                    className="bg-white text-gray-900 font-semibold px-8 py-4 flex items-center space-x-2 hover:bg-gray-100 transition-colors"
-                    onClick={() => toast.success('Search functionality coming soon!')}
-                  >
-                    <FiSearch className="h-5 w-5" />
-                    <span>Search</span>
-                  </button>
+                <div className="relative max-w-2xl mx-auto group">
+                  <div className="absolute -inset-0.5 bg-gradient-to-r from-white/30 to-white/10 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                  <div className="relative flex bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+                    <input
+                      type="text"
+                      placeholder="Search for gadgets..."
+                      className="flex-1 bg-transparent text-white placeholder-white/70 px-6 py-5 focus:outline-none focus:ring-0 border-0 text-lg"
+                    />
+                    <button 
+                      className="bg-white/90 hover:bg-white text-gray-900 font-semibold px-8 py-4 flex items-center space-x-2 transition-all duration-300 hover:scale-105 transform"
+                      onClick={() => toast.success('Search functionality coming soon!')}
+                    >
+                      <FiSearch className="h-5 w-5" />
+                      <span className="hidden sm:inline">Search</span>
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
