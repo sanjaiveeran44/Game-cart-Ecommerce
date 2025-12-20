@@ -13,10 +13,10 @@ export default function Navbar() {
             <span className="text-xl font-bold text-indigo-600">GadgetHub</span>
           </div>
           <div className="hidden md:flex items-center space-x-4">
-            <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Home</a>
-            <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Shop</a>
-            <a href="/orders" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">Orders</a>
-            <a href="#" className="text-gray-700 hover:text-white hover:bg-indigo-600 px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200">About</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Home</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Shop</a>
+            <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Orders</a>
+            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">About</a>
           </div>
           <div className="flex items-center space-x-4">
             <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200">
