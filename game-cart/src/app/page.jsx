@@ -3,7 +3,6 @@
 import { FiSearch, FiShoppingCart, FiSmartphone, FiTablet, FiHeadphones, FiWatch } from 'react-icons/fi';
 import { Toaster } from 'react-hot-toast';
 
-// Define categories array
 const categories = [
   { name: 'Smartphones', icon: <FiSmartphone /> },
   { name: 'Tablets', icon: <FiTablet /> },
@@ -27,6 +26,35 @@ export default function Home() {
         }}
       />
       
+      <nav className="bg-white shadow-sm sticky top-0 z-50">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="flex justify-between h-16">
+      <div className="flex items-center">
+        <span className="text-xl font-bold text-indigo-600">GadgetHub</span>
+      </div>
+      <div className="hidden md:flex items-center space-x-8">
+        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Home</a>
+        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Shop</a>
+        <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">Orders</a>
+        <a href="#" className="text-gray-700 hover:text-indigo-600 px-3 py-2 text-sm font-medium">About</a>
+      </div>
+      <div className="flex items-center space-x-4">
+        <button className="p-2 text-gray-500 hover:text-gray-700">
+          <FiSearch className="h-5 w-5" />
+        </button>
+        <button className="p-2 text-gray-500 hover:text-gray-700 relative">
+          <FiShoppingCart className="h-5 w-5" />
+          <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">3</span>
+        </button>
+        <button className="md:hidden p-2 text-gray-500 hover:text-gray-700">
+          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</nav>
      
       <section className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-20">
         <div className="container mx-auto px-4 text-center">
@@ -80,7 +108,9 @@ export default function Home() {
               {category.name}
             </h3>
             <p className="text-center text-sm text-gray-600">
-              {Math.floor(Math.random() * 50) + 10} products
+              {category.name === 'Smartphones' ? '42' : 
+               category.name === 'Tablets' ? '28' : 
+               category.name === 'Headphones' ? '35' : '19'} products
             </p>
             <div className="mt-4 flex justify-center">
               <span className="text-sm font-medium text-indigo-600 group-hover:text-indigo-700 transition-colors duration-200">
