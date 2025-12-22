@@ -13,23 +13,23 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
-          <div className="flex items-center">
+          <div className="flex items-center space-x-8">
             <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
               <Image
-                src="/gamecart-logo.svg"
+                src="/newlogo.png"
                 alt="GameCart Logo"
-                width={144}
-                height={40}
+                width={230}
+                height={60}
                 className="w-28 md:w-36 h-auto"
                 priority
               />
             </div>
-          </div>
-          <div className="hidden md:flex items-center space-x-4">
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Home</a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Shop</a>
-            <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Orders</a>
-            <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">About</a>
+            <div className="hidden md:flex items-center space-x-4">
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Home</a>
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Shop</a>
+              <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Orders</a>
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">About</a>
+            </div>
           </div>
           <div className="flex items-center space-x-4">
             <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200">
