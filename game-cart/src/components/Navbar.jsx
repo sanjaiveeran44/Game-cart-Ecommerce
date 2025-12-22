@@ -1,16 +1,29 @@
 "use client";
 
 import * as FiIcons from 'react-icons/fi';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const { FiSearch, FiShoppingCart } = FiIcons;
 
 export default function Navbar() {
+  const router = useRouter();
+
   return (
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16">
           <div className="flex items-center">
-            <span className="text-xl font-bold text-indigo-600">GadgetHub</span>
+            <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
+              <Image
+                src="/gamecart-logo.svg"
+                alt="GameCart Logo"
+                width={144}
+                height={40}
+                className="w-28 md:w-36 h-auto"
+                priority
+              />
+            </div>
           </div>
           <div className="hidden md:flex items-center space-x-4">
             <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Home</a>
