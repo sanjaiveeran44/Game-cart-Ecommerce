@@ -11,19 +11,19 @@ const carouselItems = [
     id: 1,
     title: "Latest Smartphones",
     description: "Discover the newest smartphone technology",
-    bgColor: "from-blue-500 to-cyan-400"
+    bgColor: "from-blue-800 to-blue-600"
   },
   {
     id: 2,
     title: "Premium Headphones",
     description: "Experience crystal clear sound quality",
-    bgColor: "from-purple-500 to-pink-500"
+    bgColor: "from-blue-900 to-blue-700"
   },
   {
     id: 3,
     title: "Smart Watches",
     description: "Stay connected with the latest wearables",
-    bgColor: "from-green-500 to-teal-400"
+    bgColor: "from-blue-700 to-blue-500"
   }
 ];
 
@@ -75,26 +75,26 @@ const settings = {
 
 export default function HeroSlider() {
   return (
-    <section className="relative overflow-hidden">
+    <section className="relative overflow-hidden max-w-4xl mx-auto px-2">
       <Slider {...settings}>
         {carouselItems.map((item) => (
           <div key={item.id} className={`h-96 flex items-center justify-center bg-gradient-to-r ${item.bgColor} text-white`}>
-            <div className="text-center px-4">
-              <h1 className="text-4xl md:text-5xl font-bold mb-4">{item.title}</h1>
-              <p className="text-xl mb-8 max-w-2xl mx-auto">{item.description}</p>
-              <div className="relative max-w-2xl mx-auto group">
-                <div className="absolute -inset-0.5 bg-gradient-to-r from-white/30 to-white/10 rounded-2xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
-                <div className="relative flex bg-white/10 backdrop-blur-sm rounded-2xl overflow-hidden border border-white/20 shadow-2xl">
+            <div className="text-center w-full max-w-2xl mx-auto px-2">
+              <h1 className="text-3xl md:text-4xl font-bold mb-3">{item.title}</h1>
+              <p className="text-lg mb-6 max-w-xl mx-auto">{item.description}</p>
+              <div className="relative max-w-lg mx-auto group">
+                <div className="absolute -inset-0.5 bg-gradient-to-r from-white/30 to-white/10 rounded-xl blur opacity-75 group-hover:opacity-100 transition duration-1000 group-hover:duration-200 animate-tilt"></div>
+                <div className="relative flex bg-white/10 backdrop-blur-sm rounded-xl overflow-hidden border border-white/20 shadow-xl">
                   <input
                     type="text"
-                    placeholder="Search for gadgets..."
-                    className="flex-1 bg-transparent text-white placeholder-white/70 px-6 py-5 focus:outline-none focus:ring-0 border-0 text-lg"
+                    placeholder="Search gadgets..."
+                    className="flex-1 bg-transparent text-white placeholder-white/70 px-4 py-3 focus:outline-none focus:ring-0 border-0 text-base"
                   />
                   <button 
-                    className="bg-white/90 hover:bg-white text-gray-900 font-semibold px-8 py-4 flex items-center space-x-2 transition-all duration-300 hover:scale-105 transform"
+                    className="bg-white/90 hover:bg-white text-gray-900 font-semibold px-4 sm:px-6 py-3 flex items-center space-x-2 transition-all duration-300 hover:scale-105 transform text-sm sm:text-base"
                     onClick={() => toast.success('Search functionality coming soon!')}
                   >
-                    <FiSearch className="h-5 w-5" />
+                    <FiSearch className="h-4 w-4 sm:h-5 sm:w-5" />
                     <span className="hidden sm:inline">Search</span>
                   </button>
                 </div>
