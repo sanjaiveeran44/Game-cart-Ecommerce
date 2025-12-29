@@ -25,21 +25,21 @@ export default function Navbar() {
               />
             </div>
             <div className="hidden md:flex items-center space-x-4">
-              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Home</a>
-              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Shop</a>
-              <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">Orders</a>
-              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4">About</a>
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4 transition-colors duration-200 hover:bg-indigo-50/50 rounded-md">Home</a>
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4 transition-colors duration-200 hover:bg-indigo-50/50 rounded-md">Shop</a>
+              <a href="/orders" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4 transition-colors duration-200 hover:bg-indigo-50/50 rounded-md">Orders</a>
+              <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4 transition-colors duration-200 hover:bg-indigo-50/50 rounded-md">About</a>
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200">
-              <FiSearch className="h-5 w-5" />
+            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all duration-200 transform hover:scale-110">
+              <FiSearch className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
             </button>
-            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full relative transition-colors duration-200">
-              <FiShoppingCart className="h-5 w-5" />
-              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center hover:bg-indigo-700 transition-colors duration-200">3</span>
+            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full relative transition-all duration-200 transform hover:scale-110 group">
+              <FiShoppingCart className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
+              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center transition-all duration-200 group-hover:bg-indigo-700 group-hover:scale-110 shadow-sm">3</span>
             </button>
-            <button className="md:hidden p-2 text-gray-500 hover:text-gray-700">
+            <button className="md:hidden p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>

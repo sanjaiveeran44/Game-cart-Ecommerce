@@ -11,19 +11,19 @@ const carouselItems = [
     id: 1,
     title: "Latest Smartphones",
     description: "Discover the newest smartphone technology",
-    bgColor: "from-blue-800 to-blue-600"
+    bgColor: "from-blue-900 to-blue-800"
   },
   {
     id: 2,
     title: "Premium Headphones",
     description: "Experience crystal clear sound quality",
-    bgColor: "from-blue-900 to-blue-700"
+    bgColor: "from-blue-950 to-blue-800"
   },
   {
     id: 3,
     title: "Smart Watches",
     description: "Stay connected with the latest wearables",
-    bgColor: "from-blue-700 to-blue-500"
+    bgColor: "from-blue-900 to-blue-700"
   }
 ];
 
@@ -56,11 +56,13 @@ function SamplePrevArrow(props) {
 const settings = {
   dots: true,
   infinite: true,
-  speed: 500,
+  speed: 1000,
+  fade: true,
+  cssEase: 'cubic-bezier(0.4, 0, 0.2, 1)',
   slidesToShow: 1,
   slidesToScroll: 1,
   autoplay: true,
-  autoplaySpeed: 3000,
+  autoplaySpeed: 5000,
   nextArrow: <SampleNextArrow />,
   prevArrow: <SamplePrevArrow />,
   appendDots: dots => (
@@ -75,11 +77,11 @@ const settings = {
 
 export default function HeroSlider() {
   return (
-    <section className="relative overflow-hidden max-w-4xl mx-auto px-2">
+    <section className="relative overflow-hidden max-w-3xl mx-auto px-4 rounded-xl shadow-2xl my-6">
       <Slider {...settings}>
         {carouselItems.map((item) => (
           <div key={item.id} className={`h-96 flex items-center justify-center bg-gradient-to-r ${item.bgColor} text-white`}>
-            <div className="text-center w-full max-w-2xl mx-auto px-2">
+            <div className="text-center w-full max-w-xl mx-auto px-2">
               <h1 className="text-3xl md:text-4xl font-bold mb-3">{item.title}</h1>
               <p className="text-lg mb-6 max-w-xl mx-auto">{item.description}</p>
               <div className="relative max-w-lg mx-auto group">
