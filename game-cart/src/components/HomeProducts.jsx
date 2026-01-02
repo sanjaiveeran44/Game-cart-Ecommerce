@@ -6,8 +6,6 @@ const HomeProducts = () => {
 
   const { products, router } = useAppContext();
   
-  console.log('Products in HomeProducts:', products);
-
   return (
     <section className="relative z-10 left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen py-10 md:py-14">
       <div className="mx-auto w-full max-w-screen-2xl px-4 md:px-8">

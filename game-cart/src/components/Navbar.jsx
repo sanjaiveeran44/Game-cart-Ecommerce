@@ -3,6 +3,7 @@
 import * as FiIcons from 'react-icons/fi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { assets } from '@/assets/assets';
 
 const { FiSearch, FiShoppingCart } = FiIcons;
 
@@ -16,10 +17,10 @@ export default function Navbar() {
           <div className="flex items-center space-x-8">
             <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
               <Image
-                src="/newlogo.png"
+                src={assets.logo}
                 alt="GameCart Logo"
-                width={230}
-                height={60}
+                width={144}
+                height={40}
                 className="w-28 md:w-36 h-auto"
                 priority
               />

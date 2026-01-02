@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { assets } from "@/context/assets";
+import { assets } from "@/assets/assets";
 import Image from "next/image";
 
 const HeaderSlider = () => {
@@ -54,7 +54,7 @@ const HeaderSlider = () => {
         {sliderData.map((slide, index) => (
           <div
             key={slide.id}
-            className="relative flex-none w-full h-full bg-slate-100"
+            className="relative h-full w-full min-w-full flex-none bg-slate-100"
           >
             <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-900"></div>
             <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-indigo-500/20 blur-3xl"></div>
@@ -79,13 +79,13 @@ const HeaderSlider = () => {
                       <button className="group inline-flex items-center justify-center gap-2 rounded-xl border border-white/20 bg-white/10 px-5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-white/15 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-white/20">
                         {slide.buttonText2}
                         <Image
-                            className="h-4 w-4 opacity-90 group-hover:translate-x-0.5 transition-transform duration-200"
-                            src={assets.arrow_icon_white}
-                            alt="arrow_icon_white"
-                            width={16}
-                            height={16}
+                          className="h-4 w-4 opacity-90 group-hover:translate-x-0.5 transition-transform duration-200"
+                          src={assets.arrow_icon_white}
+                          alt="arrow_icon_white"
+                          width={16}
+                          height={16}
                         />
-           </button>
+                      </button>
                     </div>
                   </div>
                 </div>

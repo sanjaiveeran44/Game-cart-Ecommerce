@@ -7,7 +7,7 @@ const FALLBACK_IMAGE = '/assets/header_headphone_image.png';
 const ProductCard = ({ product }) => {
     const { currency, router, addToCart } = useAppContext();
     const [imgSrc, setImgSrc] = useState(() => {
-        const image = product?.image;
+        const image = Array.isArray(product?.image) ? product.image[0] : product?.image;
         if (!image) return FALLBACK_IMAGE;
         
         if (image.startsWith('http')) {
@@ -54,7 +54,7 @@ const ProductCard = ({ product }) => {
                     width={250}
                     height={200}
                     onError={handleImageError}
-                    unoptimized={!imgSrc?.startsWith('/')}
+                    unoptimized={false}
                     priority={false}
                 />
 
