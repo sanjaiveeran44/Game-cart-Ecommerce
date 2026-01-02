@@ -4,7 +4,6 @@ import "./globals.css";
 import { AppContextProvider } from "@/context/AppContext";
 import { Toaster } from "react-hot-toast";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
@@ -32,8 +31,6 @@ export default function RootLayout({ children }) {
               <main className="relative z-10 min-h-screen">
                 {children}
               </main>
-
-              <Footer />
             </div>
           </AppContextProvider>
         </body>
