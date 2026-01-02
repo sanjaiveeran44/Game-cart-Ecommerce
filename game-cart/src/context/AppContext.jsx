@@ -1,5 +1,5 @@
 'use client'
-import { addressDummyData, productsDummyData, userDummyData } from "@/assets/assets";
+import { addressDummyData, productsDummyData, userDummyData } from "@/assets/data";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
 
