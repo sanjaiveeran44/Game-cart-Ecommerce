@@ -5,7 +5,7 @@ import { useAppContext } from "@/context/AppContext";
 const HomeProducts = () => {
 
   const { products, router } = useAppContext();
-  
+
   return (
     <section className="relative z-10 left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] w-screen py-10 md:py-14">
       <div className="mx-auto w-full max-w-screen-2xl px-4 md:px-8">
@@ -24,15 +24,7 @@ const HomeProducts = () => {
         </div>
 
         <div className="mt-8 grid w-full grid-cols-2 gap-5 sm:grid-cols-3 md:gap-6 lg:grid-cols-4 2xl:grid-cols-5">
-          {products && products.length > 0 ? (
-            products.map((product, index) => (
-              <ProductCard key={product._id || index} product={product} />
-            ))
-          ) : (
-            <div className="col-span-full text-center py-10">
-              <p className="text-slate-600">No products available</p>
-            </div>
-          )}
+          {products.map((product, index) => <ProductCard key={index} product={product} />)}
         </div>
       </div>
     </section>
