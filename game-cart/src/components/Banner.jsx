@@ -1,54 +1,54 @@
-"use client";
-
 import React from "react";
-import Image from "next/image";
 import { assets } from "@/assets/assets";
+import Image from "next/image";
 
 const Banner = () => {
   return (
-    <section className="w-full">
-      <div className="relative overflow-hidden rounded-3xl border border-slate-200/70 bg-slate-900 text-white shadow-[0_18px_50px_-35px_rgba(2,6,23,0.55)]">
-        <div aria-hidden className="pointer-events-none absolute inset-0">
-          <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-indigo-500/25 blur-3xl" />
-          <div className="absolute -right-32 -bottom-24 h-80 w-80 rounded-full bg-cyan-400/20 blur-3xl" />
-        </div>
+    <div className="relative overflow-hidden rounded-[28px] border border-white/60 bg-white/50 shadow-[0_24px_60px_-32px_rgba(2,6,23,0.35)]">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute inset-0 bg-gradient-to-tr from-slate-950 via-slate-900 to-slate-900" />
+        <div className="absolute -left-20 top-10 h-56 w-56 rounded-full bg-indigo-500/20 blur-3xl" />
+        <div className="absolute -right-24 bottom-10 h-64 w-64 rounded-full bg-cyan-400/15 blur-3xl" />
+      </div>
 
-        <div className="relative grid grid-cols-1 items-center gap-10 p-6 md:grid-cols-12 md:p-10">
-          <div className="md:col-span-7">
-            <p className="text-xs font-semibold tracking-widest text-white/70">LIMITED OFFER</p>
-            <h3 className="mt-3 text-3xl font-extrabold tracking-tight md:text-4xl">
-              Upgrade your setup today.
-            </h3>
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/75 md:text-base">
-              Premium picks, smooth delivery, and deals that won’t last long.
-            </p>
+      <div className="absolute inset-0 z-0 opacity-[0.08]">
+        <Image
+          className="w-full h-full object-cover object-right"
+          src={assets.md_controller_image}
+          alt="background_controller"
+          layout="fill"
+          objectFit="cover"
+        />
+      </div>
 
-            <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <button className="inline-flex items-center justify-center rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/40">
-                Shop Now
-              </button>
-              <button className="inline-flex items-center justify-center rounded-xl border border-white/20 bg-white/10 px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-white/15 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-white/30">
-                Explore Deals
-              </button>
-            </div>
+      <div className="relative z-10 grid grid-cols-1 items-center gap-10 px-6 py-10 md:px-10 md:py-14 lg:grid-cols-2">
+        <Image
+          className="mx-auto max-w-xs object-contain drop-shadow-[0_26px_60px_rgba(0,0,0,0.35)] md:max-w-sm lg:max-w-md"
+          src={assets.jbl_soundbox_image}
+          alt="jbl_soundbox_image"
+          width={400}
+          height={400}
+        />
+
+        <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <div className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-1.5 text-xs font-semibold tracking-widest text-white/90">
+            LIMITED OFFER
           </div>
+          <h2 className="mt-4 text-3xl font-extrabold leading-tight tracking-tight text-white md:text-4xl lg:text-5xl">
+            Level Up Your Gaming Experience
+          </h2>
 
-          <div className="md:col-span-5">
-            <div className="mx-auto w-full max-w-[520px] rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
-              <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={assets.girl_with_headphone_image}
-                  alt="Banner"
-                  fill
-                  sizes="(max-width: 768px) 100vw, 520px"
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          </div>
+          <p className="mt-3 max-w-xl text-base font-medium leading-relaxed text-white/80 md:text-lg">
+            From immersive sound to precise controls—everything you need to win
+          </p>
+
+          <button className="group mt-7 inline-flex items-center justify-center gap-2 rounded-full bg-white px-7 py-3 text-sm font-semibold text-slate-900 shadow-sm hover:bg-slate-100 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-white/30">
+            Buy now
+            <Image className="h-4 w-4 group-hover:translate-x-0.5 transition-transform duration-200" src={assets.arrow_right_icon_colored} alt="arrow_icon" />
+          </button>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 
