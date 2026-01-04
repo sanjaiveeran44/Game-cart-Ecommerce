@@ -17,7 +17,7 @@ export default function Navbar() {
           <div className="flex items-center space-x-8">
             <div className="flex items-center cursor-pointer" onClick={() => router.push('/')}>
               <Image
-                src={assets.logo}
+                src={assets.new_logo}
                 alt="GameCart Logo"
                 width={144}
                 height={40}
