@@ -8,7 +8,7 @@ import Footer from "@/components/Footer"
 const outfit = Outfit({ subsets: ["latin"], weight: ["300", "400", "500"] });
 
 export const metadata = {
-  title: "QuickCart",
+  title: "Gamecart",
   description: "Modern E-Commerce Platform",
 };
 
