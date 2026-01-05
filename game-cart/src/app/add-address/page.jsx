@@ -93,7 +93,7 @@ const AddAddress = () => {
                                     value={formData.fullName}
                                     onChange={handleChange}
                                     placeholder="Enter your full name"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -110,7 +110,7 @@ const AddAddress = () => {
                                     onChange={handleChange}
                                     placeholder="10-digit phone number"
                                     maxLength="10"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -126,7 +126,7 @@ const AddAddress = () => {
                                     value={formData.area}
                                     onChange={handleChange}
                                     placeholder="House no., building name, street name"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -142,7 +142,7 @@ const AddAddress = () => {
                                     value={formData.city}
                                     onChange={handleChange}
                                     placeholder="Enter your city"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -158,7 +158,7 @@ const AddAddress = () => {
                                     value={formData.state}
                                     onChange={handleChange}
                                     placeholder="Enter your state"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -175,7 +175,7 @@ const AddAddress = () => {
                                     onChange={handleChange}
                                     placeholder="6-digit pincode"
                                     maxLength="6"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                     required
                                 />
                             </div>
@@ -191,7 +191,7 @@ const AddAddress = () => {
                                     value={formData.landmark}
                                     onChange={handleChange}
                                     placeholder="Nearby landmark"
-                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200"
+                                    className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all duration-200 placeholder:text-black"
                                 />
                             </div>
                         </div>
