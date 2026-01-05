@@ -3,12 +3,14 @@
 import * as FiIcons from 'react-icons/fi';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useUser, UserButton } from '@clerk/nextjs';
 import { assets } from '@/assets/assets';
 
-const { FiSearch, FiShoppingCart } = FiIcons;
+const { FiSearch, FiShoppingCart, FiUser } = FiIcons;
 
 export default function Navbar() {
   const router = useRouter();
+  const { isSignedIn } = useUser();
 
   return (
     <nav className="bg-white/90 backdrop-blur-sm shadow-sm fixed w-full top-0 left-0 z-50">
@@ -32,14 +34,50 @@ export default function Navbar() {
               <a href="#" className="text-gray-700 hover:text-indigo-600 px-4 py-2 text-sm font-medium relative after:content-[''] after:absolute after:bottom-1.5 after:left-1/2 after:w-0 after:h-0.5 after:bg-indigo-600 after:transition-all after:duration-300 hover:after:w-2/4 hover:after:left-1/4 transition-colors duration-200 hover:bg-indigo-50/50 rounded-md">About</a>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
-            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all duration-200 transform hover:scale-110">
+          <div className="flex items-center space-x-2 sm:space-x-4">
+            <button 
+              className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-all duration-200 transform hover:scale-110"
+              onClick={() => router.push('/search')}
+            >
               <FiSearch className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
             </button>
-            <button className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full relative transition-all duration-200 transform hover:scale-110 group">
-              <FiShoppingCart className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
-              <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center transition-all duration-200 group-hover:bg-indigo-700 group-hover:scale-110 shadow-sm">3</span>
-            </button>
+            
+            {isSignedIn ? (
+              <div className="flex items-center space-x-2">
+                <button 
+                  className="p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full relative transition-all duration-200 transform hover:scale-110 group"
+                  onClick={() => router.push('/cart')}
+                >
+                  <FiShoppingCart className="h-5 w-5 transition-transform duration-200 group-hover:scale-110" />
+                  <span className="absolute -top-1 -right-1 bg-indigo-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center transition-all duration-200 group-hover:bg-indigo-700 group-hover:scale-110 shadow-sm">3</span>
+                </button>
+                <div className="ml-2">
+                  <UserButton afterSignOutUrl="/" />
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <button 
+                  onClick={() => router.push('/sign-in')}
+                  className="hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-indigo-700 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                >
+                  Sign In
+                </button>
+                <button
+                  onClick={() => router.push('/sign-up')}
+                  className="hidden sm:inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-200"
+                >
+                  Sign Up
+                </button>
+                <button 
+                  className="sm:hidden p-2 text-gray-500 hover:text-indigo-600 hover:bg-indigo-50 rounded-full transition-colors duration-200"
+                  onClick={() => router.push('/sign-in')}
+                >
+                  <FiUser className="h-5 w-5" />
+                </button>
+              </div>
+            )}
+
             <button className="md:hidden p-2 text-gray-500 hover:text-gray-700 hover:bg-gray-100 rounded-full transition-colors duration-200">
               <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
