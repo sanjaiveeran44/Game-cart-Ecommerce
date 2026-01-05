@@ -1,164 +1,236 @@
-"use client"
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useAppContext } from '@/context/AppContext';
-import { useUser } from '@clerk/nextjs';
-import { toast } from 'react-hot-toast';
-import Image from 'next/image';
-import { assets } from '@/assets/assets';
+import { useAppContext } from "@/context/AppContext";
+import React, { useEffect, useRef, useState } from "react";
 
 const OrderSummary = () => {
-    const router = useRouter();
-    const { cartItems, products, getCartAmount, clearCart } = useAppContext();
-    const { isSignedIn } = useUser();
-    const [loading, setLoading] = React.useState(false);
-    
-    const subtotal = getCartAmount ? getCartAmount() : 0;
-    const shipping = subtotal > 0 ? 5.99 : 0; // Example shipping cost
-    const tax = subtotal * 0.1; // Example 10% tax
-    const total = subtotal + shipping + tax;
 
-    const handleCheckout = async () => {
-        if (!isSignedIn) {
-            toast.error('Please sign in to continue');
-            router.push('/sign-in');
-            return;
-        }
+  const { currency, router, getCartCount, getCartAmount, userAddresses, selectedAddressId, setSelectedAddressId } = useAppContext()
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [showPlaceOrderToast, setShowPlaceOrderToast] = useState(false);
+  const [showOrderConfirmation, setShowOrderConfirmation] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cod');
+  const toastTimerRef = useRef(null);
 
-        if (Object.keys(cartItems).length === 0) {
-            toast.error('Your cart is empty');
-            return;
-        }
+  const handleAddressSelect = (address) => {
+    setSelectedAddressId(address?._id || null);
+    setIsDropdownOpen(false);
+  };
 
-        setLoading(true);
-        try {
-            // Simulate API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
-            
-            // Clear cart after successful order
-            clearCart();
-            toast.success('Order placed successfully!');
-            router.push('/orders');
-        } catch (error) {
-            console.error('Checkout error:', error);
-            toast.error('Failed to place order. Please try again.');
-        } finally {
-            setLoading(false);
-        }
-    };
+  const createOrder = async () => {
+    setShowPlaceOrderToast(true)
+    if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
+    toastTimerRef.current = setTimeout(() => {
+      setShowPlaceOrderToast(false)
+      toastTimerRef.current = null
+    }, 2200)
+  }
 
-    return (
-        <div className="w-full lg:w-96 h-fit sticky top-6">
-            <div className="bg-gradient-to-br from-white to-slate-50 rounded-2xl border border-slate-200/80 p-6 md:p-7 shadow-[0_10px_30px_-10px_rgba(2,6,23,0.1)]">
-                <div className="flex items-center gap-3 mb-6">
-                    <div className="p-2 rounded-lg bg-indigo-100 text-indigo-600">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
-                        </svg>
-                    </div>
-                    <h2 className="text-2xl font-bold bg-gradient-to-r from-slate-800 to-slate-600 bg-clip-text text-transparent">
-                        Order Summary
-                    </h2>
-                </div>
-                
-                <div className="space-y-4 mb-7">
-                    <div className="flex justify-between text-slate-700">
-                        <span className="text-slate-600">Subtotal</span>
-                        <span className="font-medium">${subtotal.toFixed(2)}</span>
-                    </div>
-                    <div className="flex justify-between text-slate-700">
-                        <span className="text-slate-600">Shipping</span>
-                        <span className="font-medium">{shipping > 0 ? `$${shipping.toFixed(2)}` : <span className="text-green-600">Free</span>}</span>
-                    </div>
-                    <div className="flex justify-between text-slate-700">
-                        <span className="text-slate-600">Tax (10%)</span>
-                        <span className="font-medium">${tax.toFixed(2)}</span>
-                    </div>
-                    <div className="relative my-5">
-                        <div className="absolute inset-0 flex items-center">
-                            <div className="w-full border-t border-slate-200"></div>
-                        </div>
-                        <div className="relative flex justify-center">
-                            <span className="px-2 bg-white text-sm text-slate-500">Total</span>
-                        </div>
-                    </div>
-                    <div className="flex justify-between text-xl font-bold bg-gradient-to-r from-indigo-600 to-blue-600 bg-clip-text text-transparent">
-                        <span>Amount Due</span>
-                        <span>${total.toFixed(2)}</span>
-                    </div>
-                </div>
+  const handlePlaceOrderClick = () => {
+    setShowOrderConfirmation(true)
+  }
 
-                <button
-                    onClick={handleCheckout}
-                    disabled={loading || Object.keys(cartItems).length === 0}
-                    className={`w-full py-4 px-8 rounded-2xl font-bold text-white text-lg transition-all duration-400 flex items-center justify-center gap-3 relative overflow-hidden group
-                    ${
-                        loading || Object.keys(cartItems).length === 0
-                            ? 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-60'
-                            : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-700 hover:via-teal-700 hover:to-cyan-700 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transform'
-                    }`}
-                >
-                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
-                    {loading ? (
-                        <>
-                            <div className="animate-spin rounded-full h-6 w-6 border-3 border-white/30 border-t-white"></div>
-                            <span>Processing...</span>
-                        </>
-                    ) : (
-                        <>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
-                            </svg>
-                            <span>Proceed to Checkout</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                            </svg>
-                        </>
-                    )}
-                </button>
+  const handleConfirmOrder = async () => {
+    setShowOrderConfirmation(false)
+    await createOrder()
+  }
 
-                <div className="mt-8 text-center">
-                    <p className="text-xs uppercase tracking-wider text-slate-500 mb-3">We Accept</p>
-                    <div className="flex justify-center gap-4">
-                        <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                            <Image src={assets.visa} alt="Visa" width={40} height={25} className="h-5 w-auto opacity-80 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                            <Image src={assets.mastercard} alt="Mastercard" width={40} height={25} className="h-5 w-auto opacity-80 hover:opacity-100 transition-opacity" />
-                        </div>
-                        <div className="p-2 bg-white rounded-lg shadow-sm border border-slate-100">
-                            <Image src={assets.paypal} alt="PayPal" width={40} height={25} className="h-5 w-auto opacity-80 hover:opacity-100 transition-opacity" />
-                        </div>
-                    </div>
-                </div>
-            </div>
+  const dismissPlaceOrderToast = () => {
+    setShowPlaceOrderToast(false)
+    if (toastTimerRef.current) {
+      clearTimeout(toastTimerRef.current)
+      toastTimerRef.current = null
+    }
+  }
 
-            <div className="mt-5 p-5 bg-gradient-to-br from-indigo-50 to-blue-50 rounded-2xl border border-indigo-100">
-                <div className="flex items-start gap-3">
-                    <div className="p-1.5 rounded-lg bg-indigo-100 text-indigo-600 mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                        </svg>
-                    </div>
-                    <div>
-                        <h3 className="font-semibold text-slate-800 mb-1.5">Need Help?</h3>
-                        <p className="text-sm text-slate-600 mb-3">
-                            Have questions about your order? Our customer service team is here to help.
-                        </p>
-                        <button 
-                            onClick={() => router.push('/contact')}
-                            className="inline-flex items-center text-sm font-medium text-indigo-600 hover:text-indigo-700 transition-colors group"
-                        >
-                            <span>Contact Support</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
+  useEffect(() => {
+    if (!selectedAddressId && userAddresses?.length) {
+      setSelectedAddressId(userAddresses[0]._id)
+    }
+  }, [selectedAddressId, userAddresses?.length])
+
+  useEffect(() => {
+    return () => {
+      if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
+    }
+  }, [])
+
+  const selectedAddress = userAddresses?.find((a) => a?._id === selectedAddressId) || null
+
+  return (
+    <div className="w-full lg:w-96 h-fit rounded-2xl border border-slate-200/70 bg-white p-6 md:p-7 shadow-[0_18px_40px_-28px_rgba(2,6,23,0.35)]">
+      <div className="fixed left-1/2 top-20 z-[60] w-[92vw] max-w-md -translate-x-1/2">
+        <div className={`transform-gpu origin-right overflow-hidden rounded-2xl border border-emerald-200/60 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900 shadow-[0_18px_50px_-30px_rgba(16,185,129,0.35)] ring-1 ring-emerald-300/30 transition-all duration-300 ease-out ${showPlaceOrderToast ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`}>
+          <div className="flex items-center gap-3">
+            <span className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-600 text-white shadow-sm">
+              <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fillRule="evenodd" d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.414 0l-3.5-3.5a1 1 0 011.414-1.42l2.793 2.794 6.793-6.794a1 1 0 011.414 0z" clipRule="evenodd" />
+              </svg>
+            </span>
+            <span className="whitespace-nowrap">Order placed</span>
+            <button
+              type="button"
+              onClick={dismissPlaceOrderToast}
+              className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-xl text-emerald-800/70 hover:bg-emerald-100 hover:text-emerald-900 transition-colors"
+              aria-label="Close notification"
+            >
+              <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
+              </svg>
+            </button>
+          </div>
         </div>
-    );
+      </div>
+      <h2 className="text-2xl font-extrabold tracking-tight text-slate-900 mb-6 border-b border-slate-200/70 pb-4">
+        Order Summary
+      </h2>
+
+      <div className="space-y-6 mb-8">
+        <div>
+          <label className="text-sm font-semibold text-slate-700 block mb-2">
+            Select Shipping Address
+          </label>
+          <div className="relative w-full">
+            <button
+              className="peer w-full text-left px-4 py-3 bg-white border border-slate-200/70 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400/60 transition-all duration-200 flex items-center justify-between shadow-sm hover:border-slate-300"
+              onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+            >
+              <span>
+                {selectedAddress
+                  ? `${selectedAddress.fullName}, ${selectedAddress.area}, ${selectedAddress.city}, ${selectedAddress.state}`
+                  : "Select Address"}
+              </span>
+              <svg className={`w-5 h-5 text-gray-500 transform ${isDropdownOpen ? "rotate-180" : "rotate-0"} transition-transform duration-200`}
+                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+
+            {isDropdownOpen && (
+              <ul className="absolute w-full bg-white border border-slate-200 rounded-xl shadow-lg mt-2 z-10 py-1.5 max-h-60 overflow-y-auto">
+                {userAddresses.map((address, index) => (
+                  <li
+                    key={address?._id || index}
+                    className="px-4 py-2 text-slate-700 hover:bg-slate-50 cursor-pointer transition-colors duration-200 text-sm"
+                    onClick={() => handleAddressSelect(address)}
+                  >
+                    {address.fullName}, {address.area}, {address.city}, {address.state}
+                  </li>
+                ))}
+                <li
+                  onClick={() => { router.push("/add-address"); setIsDropdownOpen(false); }}
+                  className="px-4 py-2 text-indigo-600 hover:bg-slate-50 cursor-pointer text-center font-semibold border-t border-slate-200 transition-colors duration-200"
+                >
+                  + Add New Address
+                </li>
+              </ul>
+            )}
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm font-semibold text-slate-700 block mb-2">
+            Payment Method
+          </label>
+          <div className="relative">
+           <select
+            value={paymentMethod}
+            onChange={(e) => setPaymentMethod(e.target.value)}
+            className="
+            w-full h-12 px-4 pr-10
+            rounded-lg
+            border border-slate-200
+            bg-white text-slate-900
+            shadow-sm appearance-none
+            transition-all duration-200
+            hover:border-blue-700
+            focus:outline-none
+            focus:ring-2 focus:ring-blue-500/50
+            focus:border-blue-500
+
+            [&_option]:py-2
+            [&_option]:px-3
+            [&_option]:text-slate-700
+            [&_option]:rounded-md
+            [&_option:hover]:bg-blue-50
+            [&_option:hover]:text-blue-900
+          "
+        >
+          <option value="cod">Cash on Delivery</option>
+          <option value="netbanking">Net Banking</option>
+          <option value="gpay">GPay</option>
+        </select>
+
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-blue-700">
+              <svg className="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label className="text-sm font-semibold text-slate-700 block mb-2">
+            Promo Code
+          </label>
+          <div className="flex w-full min-w-0 flex-col items-stretch gap-3 sm:flex-row">
+            <input
+              type="text"
+              placeholder="Enter promo code"
+              className="h-12 w-full min-w-0 flex-1 px-4 rounded-lg border border-slate-200/70 hover:border-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 text-slate-900 placeholder-slate-500 shadow-sm"
+            />
+            <button className="h-12 w-full shrink-0 bg-slate-900 text-white px-8 py-2 rounded-lg font-semibold shadow-sm hover:bg-slate-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-400/60 sm:w-auto">
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className="space-y-4 mb-8">
+        <div className="flex justify-between text-sm font-medium text-slate-700">
+          <p>Items ({getCartCount()})</p>
+          <p className="text-slate-900 font-semibold">{currency}{getCartAmount()}</p>
+        </div>
+        <div className="flex justify-between text-slate-600 text-sm">
+          <p>Shipping Fee</p>
+          <p className="font-medium text-slate-900">Free</p>
+        </div>
+        <div className="flex justify-between text-slate-600 text-sm">
+          <p>Tax (2%)</p>
+          <p className="font-medium text-slate-900">{currency}{(getCartAmount() * 0.02).toFixed(2)}</p>
+        </div>
+        <div className="flex justify-between text-lg font-extrabold border-t border-slate-200/70 pt-4 mt-4 text-slate-900">
+          <p>Total</p>
+          <p>{currency}{(getCartAmount() + (getCartAmount() * 0.02)).toFixed(2)}</p>
+        </div>
+      </div>
+
+      {!showOrderConfirmation ? (
+        <button onClick={handlePlaceOrderClick} className="w-full rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 py-4 font-bold text-white shadow-sm shadow-indigo-500/20 hover:from-violet-500 hover:to-indigo-500 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/20">
+          Place Order
+        </button>
+      ) : (
+        <div className="w-full rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm">
+          <p className="text-sm font-semibold text-slate-800">Do you confirm this order?</p>
+          <div className="mt-3 flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => setShowOrderConfirmation(false)}
+              className="flex-1 rounded-xl border border-slate-200 bg-white py-3 text-sm font-bold text-slate-700 shadow-sm hover:bg-slate-50 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-slate-300/60"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={handleConfirmOrder}
+              className="flex-1 rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 py-3 text-sm font-bold text-white shadow-sm shadow-indigo-500/20 hover:from-violet-500 hover:to-indigo-500 transition-colors duration-200 focus:outline-none focus:ring-4 focus:ring-indigo-500/20"
+            >
+              Confirm
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
+  );
 };
 
 export default OrderSummary;
