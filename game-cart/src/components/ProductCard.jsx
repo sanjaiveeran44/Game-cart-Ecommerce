@@ -10,15 +10,15 @@ const ProductCard = ({ product }) => {
     return (
         <div
             onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0) }}
-            className="group relative flex h-full w-full cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_-28px_rgba(2,6,23,0.35)] transition-shadow duration-300 hover:shadow-[0_28px_70px_-40px_rgba(2,6,23,0.45)]"
+            className="group relative flex h-full w-64 cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_-28px_rgba(2,6,23,0.35)] transition-shadow duration-300 hover:shadow-[0_28px_70px_-40px_rgba(2,6,23,0.45)]"
         >
-            <div className="relative flex h-52 w-full items-center justify-center bg-gradient-to-b from-slate-50 to-white p-4">
+            <div className="relative flex h-40 w-full items-center justify-center bg-gradient-to-b from-slate-50 to-white p-3">
                 <Image
                     src={product.image[0]}
                     alt={product.name}
                     className="h-full w-full object-contain"
-                    width={250}
-                    height={200}
+                    width={200}
+                    height={160}
                 />
 
                 <button className="absolute right-3 top-3 inline-flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/70 bg-white/90 shadow-sm opacity-0 transition-all duration-200 group-hover:opacity-100 group-hover:translate-y-0">

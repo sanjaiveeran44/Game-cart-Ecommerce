@@ -23,7 +23,7 @@ const HomeProducts = () => {
           </button>
         </div>
 
-        <div className="mt-8 grid w-full grid-cols-2 gap-5 sm:grid-cols-3 md:gap-6 lg:grid-cols-4 2xl:grid-cols-5">
+        <div className="mt-8 grid w-full grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
           {products.map((product, index) => <ProductCard key={index} product={product} />)}
         </div>
       </div>
