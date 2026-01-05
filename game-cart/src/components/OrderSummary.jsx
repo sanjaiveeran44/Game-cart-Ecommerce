@@ -91,24 +91,28 @@ const OrderSummary = () => {
                 <button
                     onClick={handleCheckout}
                     disabled={loading || Object.keys(cartItems).length === 0}
-                    className={`w-full py-3.5 px-6 rounded-xl font-semibold text-white text-center transition-all duration-300 flex items-center justify-center gap-2 
+                    className={`w-full py-4 px-8 rounded-2xl font-bold text-white text-lg transition-all duration-400 flex items-center justify-center gap-3 relative overflow-hidden group
                     ${
                         loading || Object.keys(cartItems).length === 0
-                            ? 'bg-slate-300 cursor-not-allowed'
-                            : 'bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 hover:shadow-lg transform hover:-translate-y-0.5 active:translate-y-0'
+                            ? 'bg-gradient-to-r from-gray-400 to-gray-500 cursor-not-allowed opacity-60'
+                            : 'bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 hover:from-emerald-700 hover:via-teal-700 hover:to-cyan-700 hover:shadow-2xl hover:scale-[1.02] active:scale-[0.98] transform'
                     }`}
                 >
+                    <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700"></div>
                     {loading ? (
                         <>
-                            <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent"></div>
-                            <span className="ml-2">Processing...</span>
+                            <div className="animate-spin rounded-full h-6 w-6 border-3 border-white/30 border-t-white"></div>
+                            <span>Processing...</span>
                         </>
                     ) : (
                         <>
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" viewBox="0 0 20 20" fill="currentColor">
                                 <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
                             </svg>
                             <span>Proceed to Checkout</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 transform group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                            </svg>
                         </>
                     )}
                 </button>
