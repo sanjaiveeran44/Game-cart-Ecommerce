@@ -3,73 +3,103 @@ import { useEffect, useRef, useState } from "react";
 import { assets } from "@/assets/assets";
 import ProductCard from "@/components/ProductCard";
 import Image from "next/image";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { useAppContext } from "@/context/AppContext";
-import React from "react";
 import { useUser } from "@clerk/nextjs";
 
 const Product = () => {
-
     const { id } = useParams();
-
-    const { products, router, addToCart } = useAppContext()
+    const router = useRouter();
+    const { products, addToCart } = useAppContext();
     const { isSignedIn } = useUser();
 
     const [mainImage, setMainImage] = useState(null);
     const [productData, setProductData] = useState(null);
+    const [loading, setLoading] = useState(true);
     const [showAddToCartToast, setShowAddToCartToast] = useState(false);
     const toastTimerRef = useRef(null);
 
-    const fetchProductData = async () => {
-        const product = products.find(product => product._id === id);
-        setProductData(product);
-    }
-
     useEffect(() => {
-        fetchProductData();
-    }, [id, products.length])
+        const fetchProductData = () => {
+            try {
+                const product = products.find(p => p._id === id);
+                if (product) {
+                    setProductData(product);
+                    setMainImage(Array.isArray(product.image) ? product.image[0] : product.image);
+                } else {
+                    console.error('Product not found');
+                    // Optionally redirect to 404
+                    // router.push('/404');
+                }
+            } catch (error) {
+                console.error('Error fetching product:', error);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (products.length > 0) {
+            fetchProductData();
+        } else {
+            setLoading(false);
+        }
+    }, [id, products]);
 
     const triggerAddToCartToast = () => {
-        setShowAddToCartToast(true)
-        if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
+        setShowAddToCartToast(true);
+        if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
         toastTimerRef.current = setTimeout(() => {
-            setShowAddToCartToast(false)
-            toastTimerRef.current = null
-        }, 2200)
-    }
+            setShowAddToCart(false);
+        }, 2200);
+    };
 
     const dismissAddToCartToast = () => {
-        setShowAddToCartToast(false)
+        setShowAddToCartToast(false);
         if (toastTimerRef.current) {
-            clearTimeout(toastTimerRef.current)
-            toastTimerRef.current = null
+            clearTimeout(toastTimerRef.current);
         }
-    }
+    };
 
     useEffect(() => {
         return () => {
-            if (toastTimerRef.current) clearTimeout(toastTimerRef.current)
-        }
-    }, [])
+            if (toastTimerRef.current) clearTimeout(toastTimerRef.current);
+        };
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-indigo-500"></div>
+            </div>
+        );
+    }
+
+    if (!productData) {
+        return (
+            <div className="min-h-screen flex items-center justify-center">
+                <p className="text-lg text-gray-600">Product not found</p>
+            </div>
+        );
+    }
 
     return (
         <div className="min-h-screen py-10 md:py-14">
+            {/* Toast Notification */}
             <div className="fixed left-1/2 top-20 z-[60] w-[92vw] max-w-md -translate-x-1/2">
                 <div className={`transform-gpu origin-right overflow-hidden rounded-2xl border border-emerald-200/60 bg-emerald-50 px-4 py-3 text-sm font-semibold text-emerald-900 shadow-[0_18px_50px_-30px_rgba(16,185,129,0.35)] ring-1 ring-emerald-300/30 transition-all duration-300 ease-out ${showAddToCartToast ? 'scale-x-100 opacity-100' : 'scale-x-0 opacity-0'}`}>
                     <div className="flex items-center gap-3">
                         <span className="grid h-8 w-8 place-items-center rounded-xl bg-emerald-600 text-white shadow-sm">
-                        <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                            <path fillRule="evenodd" d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.414 0l-3.5-3.5a1 1 0 011.414-1.42l2.793 2.794 6.793-6.794a1 1 0 011.414 0z" clipRule="evenodd" />
-                        </svg>
+                            <svg className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path fillRule="evenodd" d="M16.704 5.29a1 1 0 010 1.42l-7.5 7.5a1 1 0 01-1.414 0l-3.5-3.5a1 1 0 011.414-1.42l2.793 2.794 6.793-6.794a1 1 0 011.414 0z" clipRule="evenodd" />
+                            </svg>
                         </span>
-                        <span className="whitespace-nowrap">Added to cart</span>
+                        <span>Added to cart</span>
                         <button
-                            type="button"
                             onClick={dismissAddToCartToast}
                             className="ml-2 inline-flex h-8 w-8 items-center justify-center rounded-xl text-emerald-800/70 hover:bg-emerald-100 hover:text-emerald-900 transition-colors"
                             aria-label="Close notification"
                         >
-                            <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                            <svg className="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
                                 <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
                             </svg>
                         </button>
@@ -81,12 +111,15 @@ const Product = () => {
                     <div className="lg:pr-4 flex flex-col items-center">
                         <div className="relative w-full max-w-lg h-96 mb-6 rounded-2xl overflow-hidden border border-slate-200/70 shadow-sm flex items-center justify-center bg-gradient-to-b from-slate-50 to-white">
                             <Image
-                                src={mainImage || productData.image[0]}
-                                alt={productData.name}
+                                src={mainImage || (Array.isArray(productData.image) ? productData.image[0] : productData.image || '/placeholder.jpg')}
+                                alt={productData.name || 'Product image'}
                                 className="w-full h-full object-contain p-5"
                                 width={800}
                                 height={600}
                                 priority
+                                onError={(e) => {
+                                    e.target.src = '/placeholder.jpg';
+                                }}
                             />
                         </div>
 
