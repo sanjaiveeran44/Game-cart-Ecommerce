@@ -138,7 +138,7 @@ const ProductPage = () => {
             
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-md hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-lg hover:shadow-indigo-200"
+              className="flex-1 bg-indigo-600 text-white py-3 px-6 rounded-md hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2 shadow-md hover:shadow-lg"
             >
               <FaShoppingCart />
               <span>Add to Cart</span>
