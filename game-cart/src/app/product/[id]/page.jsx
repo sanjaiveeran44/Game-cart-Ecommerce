@@ -183,6 +183,56 @@ const ProductPage = () => {
           </p>
         </div>
       </div>
+
+      {/* Related Products */}
+      <div className="mt-16">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8">You May Also Like</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products
+            .filter(p => p._id !== id && p.category === product.category)
+            .slice(0, 4)
+            .map((relatedProduct) => (
+              <div key={relatedProduct._id} className="group relative bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-shadow">
+                <div className="aspect-square bg-gray-100 overflow-hidden">
+                  <Image
+                    src={Array.isArray(relatedProduct.image) ? relatedProduct.image[0] : relatedProduct.image}
+                    alt={relatedProduct.name}
+                    width={300}
+                    height={300}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <div className="p-4">
+                  <h3 className="text-sm font-medium text-gray-900 line-clamp-1">
+                    {relatedProduct.name}
+                  </h3>
+                  <div className="mt-2 flex items-center justify-between">
+                    <p className="text-sm font-medium text-indigo-600">
+                      ${relatedProduct.offerPrice || relatedProduct.price}
+                      {relatedProduct.offerPrice && (
+                        <span className="ml-1 text-xs text-gray-500 line-through">
+                          ${relatedProduct.price}
+                        </span>
+                      )}
+                    </p>
+                    <button 
+                      onClick={() => addToCart({ ...relatedProduct, quantity: 1 })}
+                      className="p-1.5 rounded-full bg-indigo-50 text-indigo-600 hover:bg-indigo-100"
+                      title="Add to cart"
+                    >
+                      <FaShoppingCart className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+                <a 
+                  href={`/product/${relatedProduct._id}`}
+                  className="absolute inset-0 z-10"
+                  aria-label={`View ${relatedProduct.name}`}
+                ></a>
+              </div>
+            ))}
+        </div>
+      </div>
     </div>
   );
 };
