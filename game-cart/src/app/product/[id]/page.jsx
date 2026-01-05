@@ -123,14 +123,14 @@ const ProductPage = () => {
             <div className="flex items-center border rounded-md">
               <button 
                 onClick={() => setQuantity(prev => Math.max(1, prev - 1))}
-                className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                className="px-3 py-2 text-indigo-600 hover:bg-indigo-50 rounded-l-md transition-colors"
               >
-                -
+                −
               </button>
-              <span className="w-12 text-center">{quantity}</span>
+              <span className="w-12 text-center border-t border-b border-indigo-200 bg-white py-2">{quantity}</span>
               <button 
                 onClick={() => setQuantity(prev => prev + 1)}
-                className="px-3 py-2 text-gray-600 hover:bg-gray-100"
+                className="px-3 py-2 text-indigo-600 hover:bg-indigo-50 rounded-r-md transition-colors"
               >
                 +
               </button>
@@ -138,7 +138,7 @@ const ProductPage = () => {
             
             <button
               onClick={handleAddToCart}
-              className="flex-1 bg-indigo-600 text-white py-2 px-6 rounded-md hover:bg-indigo-700 transition-colors flex items-center justify-center space-x-2"
+              className="flex-1 bg-gradient-to-r from-indigo-600 to-purple-600 text-white py-3 px-6 rounded-md hover:from-indigo-700 hover:to-purple-700 transition-all transform hover:scale-[1.02] flex items-center justify-center space-x-2 shadow-lg hover:shadow-indigo-200"
             >
               <FaShoppingCart />
               <span>Add to Cart</span>
@@ -146,11 +146,11 @@ const ProductPage = () => {
           </div>
 
           <div className="flex space-x-4 pt-4">
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+            <button className="flex items-center space-x-2 text-rose-500 hover:text-rose-600 transition-colors">
               <FaHeart className="w-5 h-5" />
               <span>Add to Wishlist</span>
             </button>
-            <button className="flex items-center space-x-2 text-gray-600 hover:text-gray-900">
+            <button className="flex items-center space-x-2 text-indigo-500 hover:text-indigo-600 transition-colors">
               <FaShare className="w-5 h-5" />
               <span>Share</span>
             </button>
