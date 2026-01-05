@@ -185,9 +185,10 @@ const ProductPage = () => {
       </div>
 
       {/* Related Products */}
-      <div className="mt-16">
-        <h2 className="text-2xl font-bold text-gray-900 mb-8">You May Also Like</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="mt-16 w-full">
+        <h2 className="text-2xl font-bold text-gray-900 mb-8 px-4">You May Also Like</h2>
+        <div className="w-full overflow-x-auto">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 min-w-max px-4 pb-4">
           {products
             .filter(p => p._id !== id && p.category === product.category)
             .slice(0, 4)
@@ -231,6 +232,7 @@ const ProductPage = () => {
                 ></a>
               </div>
             ))}
+          </div>
         </div>
       </div>
     </div>
