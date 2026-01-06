@@ -47,6 +47,15 @@ import product_details_page_apple_earphone_image3 from "./product_details_page_a
 import product_details_page_apple_earphone_image4 from "./product_details_page_apple_earphone_image4.png";
 import product_details_page_apple_earphone_image5 from "./product_details_page_apple_earphone_image5.png";
 import new_logo from './newlogo.png';
+import airpods1 from './airpods1.png';
+import airpods2 from './airpods2.png';
+import airpods3 from './airpods3.png';
+import airpods4 from './airpods4.png';
+import headset from './headset1.png';
+import mouse1 from './mouse1.png';
+import mouse2 from './mouse2.png';
+import joystick1 from './joystick1.png';
+import joystick2 from './joystick2.png';
 
 export const assets = {
   
@@ -98,7 +107,16 @@ export const assets = {
   product_details_page_apple_earphone_image3,
   product_details_page_apple_earphone_image4,
   product_details_page_apple_earphone_image5,
-  checkmark
+  checkmark,
+  airpods1,
+  airpods2,
+  airpods3,
+  airpods4,
+  headset,
+  mouse1,
+  mouse2,
+  joystick1,
+  joystick2,
 };
 
 export const BagIcon = () => {
