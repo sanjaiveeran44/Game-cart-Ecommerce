@@ -14,6 +14,7 @@ const AllProducts = () => {
     const [sortBy, setSortBy] = useState('default');
     const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
     const [loading, setLoading] = useState(true);
+    const [showAll, setShowAll] = useState(false);
 
     // Sample product data
     const sampleProducts = [
@@ -29,13 +30,13 @@ const AllProducts = () => {
         },
         {
             _id: '2',
-            name: 'Mechanical Gaming Keyboard',
-            price: 129.99,
-            image: [assets.md_controller_image],
+            name: 'Gaming Keyboard & Mouse Set',
+            price: 149.99,
+            image: [assets.keyBoardWithNouse1],
             category: 'electronics',
             rating: 4.8,
             inStock: true,
-            description: 'RGB mechanical keyboard with customizable backlighting'
+            description: 'RGB mechanical keyboard with gaming mouse combo'
         },
         {
             _id: '3',
@@ -119,6 +120,56 @@ const AllProducts = () => {
         },
         {
             _id: '11',
+            name: 'Gaming Chair Elite',
+            price: 499.99,
+            image: [assets.GamingChair1],
+            category: 'furniture',
+            rating: 4.9,
+            inStock: true,
+            description: 'Premium ergonomic gaming chair with lumbar support'
+        },
+        {
+            _id: '12',
+            name: 'Professional Gaming Chair',
+            price: 399.99,
+            image: [assets.GamingChair2],
+            category: 'furniture',
+            rating: 4.6,
+            inStock: true,
+            description: 'Adjustable gaming chair with 4D armrests'
+        },
+        {
+            _id: '13',
+            name: 'RGB Gaming Chair',
+            price: 299.99,
+            image: [assets.GamingChair3],
+            category: 'furniture',
+            rating: 4.4,
+            inStock: true,
+            description: 'Gaming chair with RGB lighting and premium materials'
+        },
+        {
+            _id: '14',
+            name: 'Complete Gaming Setup',
+            price: 199.99,
+            image: [assets.keyBoardWithNouse2],
+            category: 'electronics',
+            rating: 4.7,
+            inStock: true,
+            description: 'Full gaming keyboard and mouse RGB setup'
+        },
+        {
+            _id: '15',
+            name: 'Gaming Desktop System',
+            price: 1299.99,
+            image: [assets.system],
+            category: 'electronics',
+            rating: 4.8,
+            inStock: true,
+            description: 'Complete gaming desktop with CPU, keyboard, and monitor'
+        },
+        {
+            _id: '16',
             name: 'Laptop Stand Pro',
             price: 39.99,
             image: [assets.asus_laptop_image],
@@ -126,16 +177,6 @@ const AllProducts = () => {
             rating: 4.2,
             inStock: true,
             description: 'Adjustable aluminum laptop stand for better ergonomics'
-        },
-        {
-            _id: '12',
-            name: 'USB-C Hub Deluxe',
-            price: 49.99,
-            image: [assets.add_icon],
-            category: 'accessories',
-            rating: 4.4,
-            inStock: true,
-            description: 'Multi-port USB-C hub with HDMI and SD card reader'
         }
     ];
 
@@ -335,11 +376,38 @@ const AllProducts = () => {
                         ))}
                     </div>
                 ) : filteredProducts.length > 0 ? (
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                        {filteredProducts.map(product => (
-                            <ProductCard key={product._id} product={product} />
-                        ))}
-                    </div>
+                    <>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {(showAll ? filteredProducts : filteredProducts.slice(0, 8)).map((product, index) => (
+                                <ProductCard key={product._id} product={product} />
+                            ))}
+                        </div>
+                        
+                        {products.length > 8 && (
+                            <div className="flex justify-end mt-8">
+                                <button
+                                    onClick={() => setShowAll(!showAll)}
+                                    className="inline-flex items-center px-6 py-3 bg-transparent text-black rounded-lg font-semibold hover:bg-gray-100 transition-colors duration-200"
+                                >
+                                    {showAll ? (
+                                        <>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+                                            </svg>
+                                            View Less
+                                        </>
+                                    ) : (
+                                        <>
+                                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                            </svg>
+                                            See More
+                                        </>
+                                    )}
+                                </button>
+                            </div>
+                        )}
+                    </>
                 ) : (
                     <div className="text-center py-16">
                         <Image
