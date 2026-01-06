@@ -56,6 +56,12 @@ import mouse1 from './mouse1.png';
 import mouse2 from './mouse2.png';
 import joystick1 from './joystick1.png';
 import joystick2 from './joystick2.png';
+import GamingChair1 from './chair1.png';
+import GamingChair2 from './chair2.png';
+import GamingChair3 from './chair3.png';
+import keyBoardWithNouse1 from './keyboardwithmouse1.png';
+import keyBoardWithNouse2 from './keyboardwithmouse2.png';
+import system from './system.png';
 
 export const assets = {
   
@@ -117,6 +123,12 @@ export const assets = {
   mouse2,
   joystick1,
   joystick2,
+  GamingChair1,
+  GamingChair2,
+  GamingChair3,
+  keyBoardWithNouse1,
+  keyBoardWithNouse2,
+  system
 };
 
 export const BagIcon = () => {
