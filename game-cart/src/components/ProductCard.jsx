@@ -5,28 +5,17 @@ import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product }) => {
 
-    const { currency, router, products: contextProducts } = useAppContext()
+    const { currency, router, addToCart } = useAppContext()
 
     const handleProductClick = () => {
-        // Check if this is a sample product (from all-products page)
-        if (product._id && product._id.length < 10) {
-            // This is a sample product, find a matching context product by name
-            const matchingContextProduct = contextProducts.find(p => 
-                p.name.toLowerCase().includes(product.name.toLowerCase()) ||
-                product.name.toLowerCase().includes(p.name.toLowerCase())
-            );
-            
-            if (matchingContextProduct) {
-                router.push('/product/' + matchingContextProduct._id);
-            } else {
-                // If no match found, route to the sample product ID
-                router.push('/product/' + product._id);
-            }
-        } else {
-            // This is a context product, route normally
-            router.push('/product/' + product._id);
-        }
-        scrollTo(0, 0);
+        console.log('Product clicked:', product._id, product.name);
+        router.push('/product/' + product._id);
+    }
+
+    const handleAddToCart = (e) => {
+        e.stopPropagation(); 
+        console.log('Add to cart clicked:', product._id, product.name);
+        addToCart(product._id);
     }
 
     return (
@@ -75,8 +64,8 @@ const ProductCard = ({ product }) => {
                 </div>
 
                 <div className="mt-auto flex min-w-0 items-center justify-between gap-3 pt-5">
-                    <p className="min-w-0 truncate text-xl font-extrabold tracking-tight text-slate-900">{currency}{product.offerPrice}</p>
-                    <button className="inline-flex h-10 shrink-0 min-w-[132px] items-center justify-center rounded-lg bg-purple-900 px-4 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-400/50">
+                    <p className="min-w-0 truncate text-xl font-extrabold tracking-tight text-slate-900">{currency}{product.offerPrice || product.price}</p>
+                    <button onClick={handleAddToCart} className="inline-flex h-10 shrink-0 min-w-[132px] items-center justify-center rounded-lg bg-purple-900 px-4 text-sm font-semibold text-white shadow-sm transition-colors duration-200 hover:bg-purple-950 focus:outline-none focus:ring-2 focus:ring-purple-400/50">
                         Add to Cart
                     </button>
                 </div>
