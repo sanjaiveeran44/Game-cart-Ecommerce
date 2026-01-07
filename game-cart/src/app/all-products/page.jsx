@@ -8,184 +8,22 @@ import Image from "next/image";
 import { useAppContext } from "@/context/AppContext";
 
 const AllProducts = () => {
-    const [products, setProducts] = useState([]);
+    const { products } = useAppContext();
     const [filteredProducts, setFilteredProducts] = useState([]);
     const [selectedCategory, setSelectedCategory] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
     const [sortBy, setSortBy] = useState('default');
-    const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
+    const [priceRange, setPriceRange] = useState({ min: 0, max: 5000 });
     const [loading, setLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
-    const sampleProducts = [
-        {
-            _id: '1',
-            name: 'Wireless Gaming Headset',
-            price: 89.99,
-            image: [assets.headset],
-            category: 'electronics',
-            rating: 4.5,
-            inStock: true,
-            description: 'Premium wireless gaming headset with 7.1 surround sound'
-        },
-        {
-            _id: '2',
-            name: 'Gaming Keyboard & Mouse Set',
-            price: 149.99,
-            image: [assets.keyBoardWithNouse1],
-            category: 'electronics',
-            rating: 4.8,
-            inStock: true,
-            description: 'RGB mechanical keyboard with gaming mouse combo'
-        },
-        {
-            _id: '3',
-            name: 'Pro Gaming Mouse',
-            price: 59.99,
-            image: [assets.mouse1],
-            category: 'electronics',
-            rating: 4.3,
-            inStock: true,
-            description: 'High-precision gaming mouse with adjustable DPI'
-        },
-        {
-            _id: '4',
-            name: 'Wireless Gaming Mouse',
-            price: 79.99,
-            image: [assets.mouse2],
-            category: 'electronics',
-            rating: 4.6,
-            inStock: true,
-            description: 'Ergonomic wireless mouse with long battery life'
-        },
-        {
-            _id: '5',
-            name: 'AirPods Pro',
-            price: 249.99,
-            image: [assets.airpods1],
-            category: 'accessories',
-            rating: 4.7,
-            inStock: true,
-            description: 'Active noise cancellation with spatial audio'
-        },
-        {
-            _id: '6',
-            name: 'AirPods Max',
-            price: 549.99,
-            image: [assets.airpods2],
-            category: 'accessories',
-            rating: 4.8,
-            inStock: true,
-            description: 'Premium over-ear headphones with ANC'
-        },
-        {
-            _id: '7',
-            name: 'AirPods 3rd Gen',
-            price: 179.99,
-            image: [assets.airpods3],
-            category: 'accessories',
-            rating: 4.4,
-            inStock: true,
-            description: 'Wireless earbuds with spatial audio'
-        },
-        {
-            _id: '8',
-            name: 'AirPods 2nd Gen',
-            price: 129.99,
-            image: [assets.airpods4],
-            category: 'accessories',
-            rating: 4.2,
-            inStock: true,
-            description: 'Classic wireless earbuds with charging case'
-        },
-        {
-            _id: '9',
-            name: 'Gaming Controller Pro',
-            price: 69.99,
-            image: [assets.joystick1],
-            category: 'gaming',
-            rating: 4.7,
-            inStock: true,
-            description: 'Professional gaming controller with customizable buttons'
-        },
-        {
-            _id: '10',
-            name: 'Wireless Gaming Joystick',
-            price: 89.99,
-            image: [assets.joystick2],
-            category: 'gaming',
-            rating: 4.5,
-            inStock: true,
-            description: 'Wireless joystick with precision controls'
-        },
-        {
-            _id: '11',
-            name: 'Gaming Chair Elite',
-            price: 499.99,
-            image: [assets.GamingChair1],
-            category: 'furniture',
-            rating: 4.9,
-            inStock: true,
-            description: 'Premium ergonomic gaming chair with lumbar support'
-        },
-        {
-            _id: '12',
-            name: 'Professional Gaming Chair',
-            price: 399.99,
-            image: [assets.GamingChair2],
-            category: 'furniture',
-            rating: 4.6,
-            inStock: true,
-            description: 'Adjustable gaming chair with 4D armrests'
-        },
-        {
-            _id: '13',
-            name: 'RGB Gaming Chair',
-            price: 299.99,
-            image: [assets.GamingChair3],
-            category: 'furniture',
-            rating: 4.4,
-            inStock: true,
-            description: 'Gaming chair with RGB lighting and premium materials'
-        },
-        {
-            _id: '14',
-            name: 'Complete Gaming Setup',
-            price: 199.99,
-            image: [assets.keyBoardWithNouse2],
-            category: 'electronics',
-            rating: 4.7,
-            inStock: true,
-            description: 'Full gaming keyboard and mouse RGB setup'
-        },
-        {
-            _id: '15',
-            name: 'Gaming Desktop System',
-            price: 1299.99,
-            image: [assets.system],
-            category: 'electronics',
-            rating: 4.8,
-            inStock: true,
-            description: 'Complete gaming desktop with CPU, keyboard, and monitor'
-        },
-        {
-            _id: '16',
-            name: 'Laptop Stand Pro',
-            price: 39.99,
-            image: [assets.asus_laptop_image],
-            category: 'accessories',
-            rating: 4.2,
-            inStock: true,
-            description: 'Adjustable aluminum laptop stand for better ergonomics'
-        }
-    ];
-
     const categories = [
         { value: 'all', label: 'All Categories' },
-        { value: 'electronics', label: 'Electronics' },
-        { value: 'accessories', label: 'Accessories' },
-        { value: 'gaming', label: 'Gaming' },
-        { value: 'furniture', label: 'Furniture' }
+        { value: 'Electronics', label: 'Electronics' },
+        { value: 'Earphone', label: 'Earphones' },
+        { value: 'Accessories', label: 'Accessories' },
+        { value: 'Gaming', label: 'Gaming' },
+        { value: 'Furniture', label: 'Furniture' }
     ];
 
     const sortOptions = [
@@ -199,11 +37,11 @@ const AllProducts = () => {
     useEffect(() => {
         // Simulate loading products
         setTimeout(() => {
-            setProducts(sampleProducts);
-            setFilteredProducts(sampleProducts);
+            console.log('Products from context:', products);
+            setFilteredProducts(products);
             setLoading(false);
         }, 1000);
-    }, []);
+    }, [products]);
 
     useEffect(() => {
         let filtered = products;
@@ -223,19 +61,19 @@ const AllProducts = () => {
 
         // Filter by price range
         filtered = filtered.filter(product =>
-            product.price >= priceRange.min && product.price <= priceRange.max
+            product.offerPrice >= priceRange.min && product.offerPrice <= priceRange.max
         );
 
         // Sort products
         switch (sortBy) {
             case 'price-low':
-                filtered.sort((a, b) => a.price - b.price);
+                filtered.sort((a, b) => a.offerPrice - b.offerPrice);
                 break;
             case 'price-high':
-                filtered.sort((a, b) => b.price - a.price);
+                filtered.sort((a, b) => b.offerPrice - a.offerPrice);
                 break;
             case 'rating':
-                filtered.sort((a, b) => b.rating - a.rating);
+                filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
                 break;
             case 'name':
                 filtered.sort((a, b) => a.name.localeCompare(b.name));
