@@ -5,6 +5,7 @@ import Footer from "@/components/Footer";
 import ProductCard from "@/components/ProductCard";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { useAppContext } from "@/context/AppContext";
 
 const AllProducts = () => {
     const [products, setProducts] = useState([]);
@@ -16,7 +17,6 @@ const AllProducts = () => {
     const [loading, setLoading] = useState(true);
     const [showAll, setShowAll] = useState(false);
 
-    // Sample product data
     const sampleProducts = [
         {
             _id: '1',
@@ -297,7 +297,6 @@ const AllProducts = () => {
                             </select>
                         </div>
 
-                        {/* Sort Dropdown */}
                         <div>
                             <select
                                 value={sortBy}
@@ -377,7 +376,7 @@ const AllProducts = () => {
                     </div>
                 ) : filteredProducts.length > 0 ? (
                     <>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" >
                             {(showAll ? filteredProducts : filteredProducts.slice(0, 8)).map((product, index) => (
                                 <ProductCard key={product._id} product={product} />
                             ))}
