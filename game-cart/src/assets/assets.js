@@ -165,21 +165,164 @@ export const HomeIcon = () => (
 
 export const productsDummyData = [
   {
-    "_id": "67a1f4e43f34a77b6dde9144",
-    "userId": "user_2sZFHS1UIIysJyDVzCpQhUhTIhw",
-    "name": "Apple AirPods Pro 2nd gen",
-    "description": "Apple AirPods Pro (2nd Gen) with MagSafe Case (USB-C) provide excellent sound, active noise cancellation, and a comfortable fit. The USB-C case ensures quick charging, and they pair seamlessly with Apple devices for an effortless audio experience.",
-    "price": 499.99,
-    "offerPrice": 399.99,
-    "image": [
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/quickcart/k4dafzhwhgcn5tnoylrw.webp",
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/quickcart/j212frakb8hdrhvhajhg.webp",
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/quickcart/imwuugqxsajuwqpkegb5.webp",
-      "https://raw.githubusercontent.com/avinashdm/gs-images/main/quickcart/k1oqaslw5tb3ebw01vvj.webp"
+    _id: "67a1f4e43f34a77b6dde9144",
+    name: "Apple AirPods Pro 2nd gen",
+    description: "Apple AirPods Pro (2nd Gen) with MagSafe Case (USB-C) provide excellent sound, active noise cancellation, and a comfortable fit. The USB-C case ensures quick charging, and they pair seamlessly with Apple devices for an effortless audio experience.",
+    price: 499.99,
+    offerPrice: 399.99,
+    image: [
+      airpods1,
+      airpods2,
+      airpods3,
+      airpods4
     ],
-    "category": "Earphone",
-    "date": 1738667236865,
-    "__v": 0
+    category: "Earphone",
+    rating: 4.5,
+    inStock: true
+  },
+  {
+    _id: "67a1f52e3f34a77b6dde914a",
+    name: "Wireless Gaming Headset",
+    description: "Premium wireless gaming headset with 7.1 surround sound and RGB lighting for immersive gaming experience.",
+    price: 89.99,
+    offerPrice: 89.99,
+    image: [
+      headset
+    ],
+    category: "Electronics",
+    rating: 4.5,
+    inStock: true
+  },
+  {
+    _id: "67a1f5663f34a77b6dde914c",
+    name: "Gaming Keyboard & Mouse Set",
+    description: "RGB mechanical keyboard with gaming mouse combo featuring customizable backlighting and precision sensors.",
+    price: 149.99,
+    offerPrice: 149.99,
+    image: [
+      keyBoardWithNouse1,
+      keyBoardWithNouse2
+    ],
+    category: "Electronics",
+    rating: 4.8,
+    inStock: true
+  },
+  {
+    _id: "67a1f5993f34a77b6dde914e",
+    name: "Pro Gaming Mouse",
+    description: "High-precision gaming mouse with adjustable DPI and ergonomic design for long gaming sessions.",
+    price: 59.99,
+    offerPrice: 59.99,
+    image: [
+      mouse1
+    ],
+    category: "Electronics",
+    rating: 4.3,
+    inStock: true
+  },
+  {
+    _id: "67a1f5ef3f34a77b6dde9150",
+    name: "Wireless Gaming Mouse",
+    description: "Ergonomic wireless mouse with long battery life and precision tracking for competitive gaming.",
+    price: 79.99,
+    offerPrice: 79.99,
+    image: [
+      mouse2
+    ],
+    category: "Electronics",
+    rating: 4.6,
+    inStock: true
+  },
+  {
+    _id: "67a1f70c3f34a77b6dde9156",
+    name: "Gaming Controller Pro",
+    description: "Professional gaming controller with customizable buttons and wireless connectivity for seamless gaming.",
+    price: 69.99,
+    offerPrice: 69.99,
+    image: [
+      joystick1
+    ],
+    category: "Gaming",
+    rating: 4.7,
+    inStock: true
+  },
+  {
+    _id: "67a1f85e3f34a77b6dde915e",
+    name: "Wireless Gaming Joystick",
+    description: "Wireless joystick with precision controls and responsive feedback for arcade-style gaming.",
+    price: 89.99,
+    offerPrice: 89.99,
+    image: [
+      joystick2
+    ],
+    category: "Gaming",
+    rating: 4.5,
+    inStock: true
+  },
+  {
+    _id: "67a1f7c93f34a77b6dde915a",
+    name: "Gaming Chair Elite",
+    description: "Premium ergonomic gaming chair with lumbar support and 4D armrests for maximum comfort.",
+    price: 499.99,
+    offerPrice: 499.99,
+    image: [
+      GamingChair1
+    ],
+    category: "Furniture",
+    rating: 4.9,
+    inStock: true
+  },
+  {
+    _id: "67a1f8363f34a77b6dde915c",
+    name: "Professional Gaming Chair",
+    description: "Adjustable gaming chair with 4D armrests and premium materials for extended gaming sessions.",
+    price: 399.99,
+    offerPrice: 399.99,
+    image: [
+      GamingChair2
+    ],
+    category: "Furniture",
+    rating: 4.6,
+    inStock: true
+  },
+  {
+    _id: "67a1fa4b3f34a77b6dde9166",
+    name: "RGB Gaming Chair",
+    description: "Gaming chair with RGB lighting and premium materials with enhanced ergonomics.",
+    price: 299.99,
+    offerPrice: 299.99,
+    image: [
+      GamingChair3
+    ],
+    category: "Furniture",
+    rating: 4.4,
+    inStock: true
+  },
+  {
+    _id: "67a1f85e3f34a77b6dde915e",
+    name: "Complete Gaming Setup",
+    description: "Full gaming keyboard and mouse RGB setup with customizable lighting effects.",
+    price: 199.99,
+    offerPrice: 199.99,
+    image: [
+      keyBoardWithNouse2
+    ],
+    category: "Electronics",
+    rating: 4.7,
+    inStock: true
+  },
+  {
+    _id: "67a1f5ef3f34a77b6dde9150",
+    name: "Laptop Stand Pro",
+    description: "Adjustable aluminum laptop stand for better ergonomics and improved cooling.",
+    price: 39.99,
+    offerPrice: 39.99,
+    image: [
+      asus_laptop_image
+    ],
+    category: "Accessories",
+    rating: 4.2,
+    inStock: true
   },
   {
     "_id": "67a1f52e3f34a77b6dde914a",
