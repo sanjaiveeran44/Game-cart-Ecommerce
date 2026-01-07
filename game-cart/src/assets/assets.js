@@ -273,7 +273,7 @@ export const productsDummyData = [
     inStock: true
   },
   {
-    _id: "67a1f8363f34a77b6dde915c",
+    _id: "67a1fa4b3f34a77b6dde9166",
     name: "Professional Gaming Chair",
     description: "Adjustable gaming chair with 4D armrests and premium materials for extended gaming sessions.",
     price: 399.99,
@@ -286,7 +286,7 @@ export const productsDummyData = [
     inStock: true
   },
   {
-    _id: "67a1fa4b3f34a77b6dde9166",
+    _id: "67a1fa4b3f34a77b6dde9167",
     name: "RGB Gaming Chair",
     description: "Gaming chair with RGB lighting and premium materials with enhanced ergonomics.",
     price: 299.99,
@@ -299,7 +299,7 @@ export const productsDummyData = [
     inStock: true
   },
   {
-    _id: "67a1f85e3f34a77b6dde915e",
+    _id: "67a1fa4b3f34a77b6dde9168",
     name: "Complete Gaming Setup",
     description: "Full gaming keyboard and mouse RGB setup with customizable lighting effects.",
     price: 199.99,
@@ -312,7 +312,7 @@ export const productsDummyData = [
     inStock: true
   },
   {
-    _id: "67a1f5ef3f34a77b6dde9150",
+    _id: "67a1fa4b3f34a77b6dde9169",
     name: "Laptop Stand Pro",
     description: "Adjustable aluminum laptop stand for better ergonomics and improved cooling.",
     price: 39.99,
