@@ -5,11 +5,33 @@ import { useAppContext } from '@/context/AppContext';
 
 const ProductCard = ({ product }) => {
 
-    const { currency, router } = useAppContext()
+    const { currency, router, products: contextProducts } = useAppContext()
+
+    const handleProductClick = () => {
+        // Check if this is a sample product (from all-products page)
+        if (product._id && product._id.length < 10) {
+            // This is a sample product, find a matching context product by name
+            const matchingContextProduct = contextProducts.find(p => 
+                p.name.toLowerCase().includes(product.name.toLowerCase()) ||
+                product.name.toLowerCase().includes(p.name.toLowerCase())
+            );
+            
+            if (matchingContextProduct) {
+                router.push('/product/' + matchingContextProduct._id);
+            } else {
+                // If no match found, route to the sample product ID
+                router.push('/product/' + product._id);
+            }
+        } else {
+            // This is a context product, route normally
+            router.push('/product/' + product._id);
+        }
+        scrollTo(0, 0);
+    }
 
     return (
         <div
-            onClick={() => { router.push('/product/' + product._id); scrollTo(0, 0) }}
+            onClick={handleProductClick}
             className="group relative flex h-full w-64 cursor-pointer flex-col overflow-hidden rounded-2xl border border-slate-200/70 bg-white shadow-[0_18px_40px_-28px_rgba(2,6,23,0.35)] transition-shadow duration-300 hover:shadow-[0_28px_70px_-40px_rgba(2,6,23,0.45)]"
         >
             <div className="relative flex h-40 w-full items-center justify-center bg-gradient-to-b from-slate-50 to-white p-3">
