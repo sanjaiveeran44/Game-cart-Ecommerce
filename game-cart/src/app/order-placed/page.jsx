@@ -12,8 +12,8 @@ const OrderPlaced = () => {
   const { router } = useAppContext()
   const [suggestedProducts, setSuggestedProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [hideBubbles, setHideBubbles] = useState(false)
 
-  // Calculate expected delivery date (3-5 days from now)
   const getExpectedDelivery = () => {
     const today = new Date()
     const minDelivery = new Date(today)
@@ -31,36 +31,201 @@ const OrderPlaced = () => {
   const deliveryDates = getExpectedDelivery()
 
   useEffect(() => {
-    // Get random suggested products
+  
     const shuffled = [...productsDummyData].sort(() => 0.5 - Math.random())
     const suggested = shuffled.slice(0, 4)
     setSuggestedProducts(suggested)
     setLoading(false)
+    
+    setTimeout(() => {
+      setHideBubbles(true)
+    }, 3000)
   }, [])
 
   useEffect(() => {
     setTimeout(() => {
       router.push('/my-orders')
-    }, 10000) // Extended to 10 seconds
+    }, 10000) 
   }, [])
 
   return (
     <>
+      <style jsx>{`
+        @keyframes bounce-in {
+          0% { transform: scale(0); opacity: 0; }
+          50% { transform: scale(1.1); }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes scale-in {
+          0% { transform: scale(0); opacity: 0; }
+          100% { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slide-up {
+          0% { transform: translateY(20px); opacity: 0; }
+          100% { transform: translateY(0); opacity: 1; }
+        }
+        
+        @keyframes float-up {
+          0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+          100% { transform: translateY(-100px) rotate(360deg); opacity: 1; }
+        }
+        
+        @keyframes checkmark {
+          0% { stroke-dashoffset: 100; }
+          100% { stroke-dashoffset: 0; }
+        }
+        
+        .animate-bounce-in {
+          animation: bounce-in 0.6s ease-out;
+        }
+        
+        .animate-scale-in {
+          animation: scale-in 0.3s ease-out 0.3s both;
+        }
+        
+        .animate-slide-up {
+          animation: slide-up 0.5s ease-out;
+        }
+        
+        .animate-slide-up-delay-1 {
+          animation: slide-up 0.5s ease-out 0.2s both;
+        }
+        
+        .animate-float-up {
+          animation: float-up 2s ease-out forwards;
+        }
+        
+        .animate-float-up-delay-1 {
+          animation: float-up 2s ease-out 0.2s forwards;
+        }
+        
+        .animate-float-up-delay-2 {
+          animation: float-up 2s ease-out 0.4s forwards;
+        }
+        
+        .animate-float-up-delay-3 {
+          animation: float-up 2s ease-out 0.6s forwards;
+        }
+        
+        .animate-float-up-delay-4 {
+          animation: float-up 2s ease-out 0.8s forwards;
+        }
+        
+        .animate-float-up-delay-5 {
+          animation: float-up 2s ease-out 1s forwards;
+        }
+        
+        .animate-checkmark {
+          stroke-dasharray: 100;
+          animation: checkmark 0.5s ease-out 0.6s both;
+        }
+        
+        .confetti-piece-1 {
+          position: absolute;
+          width: 8px;
+          height: 8px;
+          background: linear-gradient(45deg, #10b981, #3b82f6);
+          border-radius: 50%;
+          top: 20%;
+          left: 10%;
+        }
+        
+        .confetti-piece-2 {
+          position: absolute;
+          width: 6px;
+          height: 6px;
+          background: linear-gradient(45deg, #f59e0b, #ef4444);
+          border-radius: 50%;
+          top: 30%;
+          left: 80%;
+        }
+        
+        .confetti-piece-3 {
+          position: absolute;
+          width: 10px;
+          height: 10px;
+          background: linear-gradient(45deg, #8b5cf6, #6366f1);
+          border-radius: 50%;
+          top: 60%;
+          left: 20%;
+        }
+        
+        .confetti-piece-4 {
+          position: absolute;
+          width: 7px;
+          height: 7px;
+          background: linear-gradient(45deg, #ec4899, #db2777);
+          border-radius: 50%;
+          top: 40%;
+          left: 70%;
+        }
+        
+        .confetti-piece-5 {
+          position: absolute;
+          width: 9px;
+          height: 9px;
+          background: linear-gradient(45deg, #14b8a6, #059669);
+          border-radius: 50%;
+          top: 70%;
+          left: 50%;
+        }
+        
+        .confetti-piece-6 {
+          position: absolute;
+          width: 5px;
+          height: 5px;
+          background: linear-gradient(45deg, #fbbf24, #f59e0b);
+          border-radius: 50%;
+          top: 25%;
+          left: 85%;
+        }
+      `}</style>
+      
       <Navbar />
       <div className='min-h-screen bg-slate-50 py-12 px-4'>
         <div className="max-w-6xl mx-auto">
-          {/* Order Success Section */}
-          <div className="bg-white p-8 md:p-12 rounded-xl shadow-lg border border-gray-200 text-center mb-12">
-            <div className="relative flex justify-center items-center mb-8">
-              <Image className="absolute p-4 w-16 h-16" src={assets.checkmark} alt='Order Confirmed' />
-              <div className="animate-spin rounded-full h-32 w-32 border-4 border-t-indigo-500 border-gray-200"></div>
+          <div className="bg-white p-8 md:p-12 rounded-xl shadow-lg border border-gray-200 text-center mb-12 relative overflow-hidden">
+            {/* Background Animation */}
+            <div className={`absolute inset-0 pointer-events-none transition-opacity duration-1000 ${hideBubbles ? 'opacity-0' : 'opacity-100'}`}>
+              <div className="absolute top-0 left-1/4 w-32 h-32 bg-green-400 rounded-full opacity-20 animate-ping"></div>
+              <div className="absolute top-0 right-1/4 w-24 h-24 bg-blue-400 rounded-full opacity-20 animate-ping animation-delay-200"></div>
+              <div className="absolute bottom-0 left-1/3 w-28 h-28 bg-purple-400 rounded-full opacity-20 animate-ping animation-delay-400"></div>
+              <div className="absolute bottom-0 right-1/3 w-20 h-20 bg-indigo-400 rounded-full opacity-20 animate-ping animation-delay-600"></div>
             </div>
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Order Placed Successfully!</h1>
-            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto">
+            
+            {/* Main Success Animation */}
+            <div className="relative flex justify-center items-center mb-8">
+              <div className="relative">
+                {/* Checkmark Circle */}
+                <div className="w-32 h-32 rounded-full bg-gradient-to-r from-green-400 to-green-600 flex items-center justify-center shadow-2xl animate-bounce-in">
+                  <div className="w-24 h-24 rounded-full bg-white flex items-center justify-center">
+                    <div className="w-16 h-16 rounded-full bg-gradient-to-r from-green-500 to-green-600 flex items-center justify-center animate-scale-in">
+                      <svg className="w-8 h-8 text-white animate-checkmark" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Confetti Animation */}
+                <div className="absolute inset-0 pointer-events-none">
+                  <div className="confetti-piece-1 animate-float-up"></div>
+                  <div className="confetti-piece-2 animate-float-up-delay-1"></div>
+                  <div className="confetti-piece-3 animate-float-up-delay-2"></div>
+                  <div className="confetti-piece-4 animate-float-up-delay-3"></div>
+                  <div className="confetti-piece-5 animate-float-up-delay-4"></div>
+                  <div className="confetti-piece-6 animate-float-up-delay-5"></div>
+                </div>
+              </div>
+            </div>
+            
+            <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-4 animate-slide-up">Order Placed Successfully!</h1>
+            <p className="text-gray-600 text-lg mb-8 max-w-2xl mx-auto animate-slide-up-delay-1">
               Thank you for your purchase. Your order details are being processed and will be shipped soon.
             </p>
             
-            {/* Order Details */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-lg p-6 mb-8">
               <h2 className="text-xl font-semibold text-gray-800 mb-4">Order Details</h2>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
@@ -87,8 +252,7 @@ const OrderPlaced = () => {
                 </div>
               </div>
             </div>
-            
-            {/* Action Buttons */}
+                       
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <button
                 onClick={() => router.push('/my-orders')}
@@ -105,7 +269,6 @@ const OrderPlaced = () => {
             </div>
           </div>
 
-          {/* Suggested Products Section */}
           <div className="mb-12">
             <div className="text-center mb-8">
               <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4">You Might Also Like</h2>
