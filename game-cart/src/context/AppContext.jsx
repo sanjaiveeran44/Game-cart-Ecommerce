@@ -2,6 +2,7 @@
 import { addressDummyData, productsDummyData, userDummyData } from "@/assets/assets";
 import { useRouter } from "next/navigation";
 import { createContext, useContext, useEffect, useState } from "react";
+import { useUser } from "@clerk/nextjs";
 
 export const AppContext = createContext();
 
@@ -13,10 +14,11 @@ export const AppContextProvider = (props) => {
 
     const currency = process.env.NEXT_PUBLIC_CURRENCY
     const router = useRouter()
+    const { user } = useUser()
 
     const [products, setProducts] = useState([])
     const [userData, setUserData] = useState(false)
-    const [isSeller, setIsSeller] = useState(true)
+    const [isSeller, setIsSeller] = useState(false)
     const [cartItems, setCartItems] = useState({})
 
     const [userAddresses, setUserAddresses] = useState([])
@@ -147,7 +149,8 @@ export const AppContextProvider = (props) => {
         addToCart, updateCartQuantity,
         getCartCount, getCartAmount,
         userAddresses, addUserAddress,
-        selectedAddressId, setSelectedAddressId
+        selectedAddressId, setSelectedAddressId,
+        user // Add user to context
     }
 
     return (
