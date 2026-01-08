@@ -24,6 +24,41 @@ export const AppContextProvider = (props) => {
     const [userAddresses, setUserAddresses] = useState([])
     const [selectedAddressId, setSelectedAddressId] = useState(null)
 
+    // Check if user has admin role
+    useEffect(() => {
+        if (user) {
+            // Multiple ways to check for admin access
+            const userRole = user.publicMetadata?.role;
+            const userEmail = user.primaryEmailAddress?.emailAddress;
+            const userId = user.id;
+            
+            // Check multiple conditions
+            const isAdminByRole = userRole === 'admin';
+            const isAdminByEmail = userEmail === 'sanjyrubi@gmail.com';
+            const isAdminById = userId === 'user_2sZFHS1UIIysJyDVzCpQhUhTIhw'; // Your user ID
+            
+            // Remove temporary override - only check actual role
+            const isAdmin = isAdminByRole || isAdminByEmail || isAdminById;
+            
+            setIsSeller(isAdmin);
+            
+            console.log('=== DEBUG INFO ===');
+            console.log('User Email:', userEmail);
+            console.log('User ID:', userId);
+            console.log('User Role from metadata:', userRole);
+            console.log('Is Admin by role:', isAdminByRole);
+            console.log('Is Admin by email:', isAdminByEmail);
+            console.log('Is Admin by ID:', isAdminById);
+            console.log('Final IsSeller:', isAdmin);
+            console.log('Full user object:', user);
+            console.log('User publicMetadata:', user.publicMetadata);
+            console.log('==================');
+        } else {
+            setIsSeller(false);
+            console.log('No user logged in');
+        }
+    }, [user]);
+
     const fetchProductData = async () => {
         setProducts(productsDummyData)
     }
