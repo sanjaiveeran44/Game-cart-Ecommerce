@@ -31,6 +31,8 @@ const OrderSummary = () => {
   const handleConfirmOrder = async () => {
     setShowOrderConfirmation(false)
     await createOrder()
+    // Route to order-placed page after confirming order
+    router.push('/order-placed')
   }
 
   const dismissPlaceOrderToast = () => {
@@ -90,7 +92,7 @@ const OrderSummary = () => {
           </label>
           <div className="relative w-full">
             <button
-              className="peer w-full text-left px-4 py-3 bg-white border border-slate-200/70 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400/60 transition-all duration-200 flex items-center justify-between shadow-sm hover:border-slate-300"
+              className="peer w-full text-left px-4 py-3 bg-white border border-slate-200/70 rounded-xl text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400/60 transition-all duration-200 flex items-center justify-between shadow-sm hover:border-blue-700"
               onClick={() => setIsDropdownOpen(!isDropdownOpen)}
             >
               <span>
@@ -146,13 +148,17 @@ const OrderSummary = () => {
             focus:outline-none
             focus:ring-2 focus:ring-blue-500/50
             focus:border-blue-500
+            cursor-pointer
 
-            [&_option]:py-2
-            [&_option]:px-3
+            [&_option]:py-3
+            [&_option]:px-4
             [&_option]:text-slate-700
             [&_option]:rounded-md
-            [&_option:hover]:bg-blue-50
-            [&_option:hover]:text-blue-900
+            [&_option]:flex
+            [&_option]:items-center
+            [&_option]:gap-3
+            [&_option]:hover:bg-blue-50
+            [&_option]:hover:text-blue-900
           "
         >
           <option value="cod">Cash on Delivery</option>
