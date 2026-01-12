@@ -1,6 +1,7 @@
 import React from "react";
 import { assets } from "@/assets/assets";
 import Image from "next/image";
+import { FiMail, FiPhone, FiMapPin, FiGithub, FiExternalLink } from "react-icons/fi";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -9,6 +10,13 @@ const Footer = () => {
     { name: 'Facebook', icon: assets.facebook_icon, href: '#' },
     { name: 'Twitter', icon: assets.twitter_icon, href: '#' },
     { name: 'Instagram', icon: assets.instagram_icon, href: '#' },
+    { name: 'GitHub', icon: '/github-mark.svg', href: 'https://github.com' },
+  ];
+
+  const quickLinks = [
+    { name: 'Documentation', icon: FiExternalLink, href: '/docs' },
+    { name: 'API Status', icon: FiExternalLink, href: '/api-status' },
+    { name: 'Support', icon: FiMail, href: 'mailto:support@gamecart.com' },
   ];
 
   return (
@@ -18,20 +26,24 @@ const Footer = () => {
         <Image 
           className="hidden md:block w-24 hover:opacity-80 transition-opacity duration-200 cursor-pointer" 
           src={assets.logo} 
-          alt="QuickCart Logo" 
+          alt="GameCart Logo" 
         />
         <div className="hidden md:block h-7 w-px bg-gray-300"></div>
         <div className="text-center md:text-left">
           <p className="text-xs md:text-sm text-gray-600">
             Copyright {currentYear} © greatstack.dev All Rights Reserved.
           </p>
-          <p className="text-xs text-gray-500 mt-1">Seller Dashboard v1.0</p>
+          <div className="flex items-center gap-2 mt-1 text-xs text-gray-500">
+            <FiMapPin className="w-3 h-3" />
+            <span>Built with ❤️ in India</span>
+          </div>
+          <p className="text-xs text-indigo-600 font-medium">Seller Dashboard v2.0</p>
         </div>
       </div>
 
       {/* Right Side - Social Links */}
       <div className="flex items-center gap-4">
-        <span className="hidden md:block text-sm text-gray-600 mr-2">Follow us:</span>
+        <span className="hidden md:block text-sm text-gray-600 mr-2">Connect:</span>
         <div className="flex items-center gap-3">
           {socialLinks.map((social) => (
             <a 
@@ -39,6 +51,8 @@ const Footer = () => {
               href={social.href} 
               className="group relative p-2 rounded-full bg-gray-100 hover:bg-gradient-to-r hover:from-indigo-500 hover:to-purple-600 transition-all duration-300 hover:shadow-md"
               aria-label={social.name}
+              target="_blank"
+              rel="noopener noreferrer"
             >
               <Image 
                 src={social.icon} 
@@ -54,11 +68,21 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Mobile Only - Centered Info */}
-      <div className="md:hidden text-center mt-4">
-        <p className="text-xs text-gray-500">
-          Made with ❤️ by greatstack.dev
-        </p>
+      {/* Mobile Only - Quick Links */}
+      <div className="md:hidden text-center mt-6">
+        <p className="text-xs text-gray-500 mb-3">Quick Links:</p>
+        <div className="flex flex-col gap-2">
+          {quickLinks.map((link) => (
+            <a
+              key={link.name}
+              href={link.href}
+              className="flex items-center gap-2 text-xs text-gray-600 hover:text-indigo-600 transition-colors"
+            >
+              <link.icon className="w-4 h-4" />
+              <span>{link.name}</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   );
