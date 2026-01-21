@@ -1,60 +1,73 @@
-import mongoose from 'mongoose';
+import mysql from 'mysql2/promise';
 
-const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/gamecart';
+const DB_HOST = process.env.DB_HOST || 'localhost';
+const DB_USER = process.env.DB_USER || 'root';
+const DB_PASSWORD = process.env.DB_PASSWORD || '';
+const DB_NAME = process.env.DB_NAME || 'gamecart';
+const DB_PORT = process.env.DB_PORT || 3306;
 
-if (!MONGODB_URI) {
-  throw new Error('Please define the MONGODB_URI environment variable inside .env.local');
+if (!DB_HOST || !DB_USER || !DB_NAME) {
+  throw new Error('Please define DB_HOST, DB_USER, and DB_NAME environment variables inside .env.local');
 }
 
-let cached = global.mongoose;
+let cached = global.mysql;
 
 if (!cached) {
-  cached = global.mongoose = { conn: null, promise: null };
+  cached = global.mysql = { pool: null, connected: false };
 }
 
 async function connectDB() {
-  if (cached.conn) {
-    console.log('MongoDB already connected');
-    return cached.conn;
+  if (cached.connected && cached.pool) {
+    console.log('MySQL already connected');
+    return cached.pool;
   }
 
-  if (!cached.promise) {
-    const opts = {
-      bufferCommands: false,
-      maxPoolSize: 10,
-      serverSelectionTimeoutMS: 5000,
-      socketTimeoutMS: 45000,
-      family: 4,
+  if (!cached.pool) {
+    const poolConfig = {
+      host: DB_HOST,
+      user: DB_USER,
+      password: DB_PASSWORD,
+      database: DB_NAME,
+      port: DB_PORT,
+      waitForConnections: true,
+      connectionLimit: 10,
+      queueLimit: 0,
+      acquireTimeout: 60000,
+      timeout: 60000,
+      reconnect: true,
+      charset: 'utf8mb4',
     };
 
-    cached.promise = mongoose.connect(MONGODB_URI, opts)
-      .then((mongoose) => {
-        console.log('MongoDB connected successfully');
-        return mongoose;
-      })
-      .catch((error) => {
-        console.error('MongoDB connection error:', error);
-        throw error;
-      });
+    try {
+      cached.pool = mysql.createPool(poolConfig);
+      
+      const connection = await cached.pool.getConnection();
+      await connection.ping();
+      connection.release();
+      
+      cached.connected = true;
+      console.log('MySQL connected successfully');
+      return cached.pool;
+    } catch (error) {
+      console.error('MySQL connection error:', error);
+      cached.pool = null;
+      cached.connected = false;
+      throw error;
+    }
   }
 
-  try {
-    cached.conn = await cached.promise;
-    return cached.conn;
-  } catch (error) {
-    cached.promise = null;
-    throw error;
-  }
+  return cached.pool;
 }
 
-// Graceful shutdown
 process.on('SIGINT', async () => {
   try {
-    await mongoose.connection.close();
-    console.log('MongoDB connection closed through app termination');
+    if (cached.pool) {
+      await cached.pool.end();
+      console.log('MySQL connection closed through app termination');
+    }
     process.exit(0);
   } catch (error) {
-    console.error('Error closing MongoDB connection:', error);
+    console.error('Error closing MySQL connection:', error);
     process.exit(1);
   }
 });
